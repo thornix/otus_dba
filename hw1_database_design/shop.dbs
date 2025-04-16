@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="shop" database="PostgreSQL" id="PostgreSQL-993" >
+	<schema name="shop" >
+		<table name="customers" prior="tbl" >
+			<column name="customer_id" type="integer" jt="4" mandatory="y" />
+			<column name="customer_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="100" jt="12" />
+			<index name="pk_customers" unique="PRIMARY_KEY" >
+				<column name="customer_id" />
+			</index>
+		</table>
+		<table name="orders" prior="tbl" >
+			<column name="order_id" type="integer" jt="4" mandatory="y" />
+			<column name="customer_id" type="integer" jt="4" mandatory="y" />
+			<column name="product_id" type="integer" jt="4" mandatory="y" />
+			<column name="order_date" type="date" jt="91" mandatory="y" />
+			<index name="pk_orders" unique="PRIMARY_KEY" >
+				<column name="order_id" />
+			</index>
+			<fk name="fk_orders_customers" to_schema="shop" to_table="customers" >
+				<fk_column name="customer_id" pk="customer_id" />
+			</fk>
+			<fk name="fk_orders_products" to_schema="shop" to_table="products" >
+				<fk_column name="product_id" pk="product_id" />
+			</fk>
+		</table>
+		<table name="price" prior="tbl" >
+			<column name="price_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="product_id" prior="category_id" type="integer" jt="4" mandatory="y" />
+			<column name="price" type="numeric" jt="2" mandatory="y" />
+			<column name="category_id" type="integer" jt="4" mandatory="y" />
+			<index name="pk_price" unique="PRIMARY_KEY" >
+				<column name="price_id" />
+			</index>
+		</table>
+		<table name="producer" prior="tbl" >
+			<column name="producer_id" type="integer" jt="4" mandatory="y" />
+			<column name="producer_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_producer" unique="PRIMARY_KEY" >
+				<column name="producer_id" />
+			</index>
+		</table>
+		<table name="product_category" prior="tbl" >
+			<column name="category_id" type="integer" jt="4" mandatory="y" />
+			<column name="category_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_product_category" unique="PRIMARY_KEY" >
+				<column name="category_id" />
+			</index>
+		</table>
+		<table name="products" prior="tbl" >
+			<column name="product_id" type="integer" jt="4" mandatory="y" />
+			<column name="product_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="category_id" type="integer" jt="4" mandatory="y" />
+			<column name="price" prior="price_id" type="numeric" length="10" decimal="2" jt="2" mandatory="y" />
+			<column name="supplier_id" type="integer" jt="4" mandatory="y" />
+			<column name="producer_id" type="integer" jt="4" mandatory="y" />
+			<index name="pk_products" unique="PRIMARY_KEY" >
+				<column name="product_id" />
+			</index>
+			<fk name="fk_products_products" to_schema="shop" to_table="suppliers" delete_action="cascade" update_action="cascade" >
+				<fk_column name="supplier_id" pk="supplier_id" />
+			</fk>
+			<fk name="fk_products_producer" to_schema="shop" to_table="producer" delete_action="cascade" update_action="cascade" >
+				<fk_column name="producer_id" pk="producer_id" />
+			</fk>
+			<fk name="fk_products_price" to_schema="shop" to_table="price" delete_action="cascade" update_action="cascade" >
+				<fk_column name="price" pk="price_id" />
+			</fk>
+			<fk name="fk_products_product_category" to_schema="shop" to_table="product_category" delete_action="cascade" update_action="cascade" >
+				<fk_column name="category_id" pk="category_id" />
+			</fk>
+		</table>
+		<table name="suppliers" prior="tbl" >
+			<column name="supplier_id" prior="supplier_name" type="bigint" jt="-5" mandatory="y" />
+			<column name="supplier_name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_suppliers" unique="PRIMARY_KEY" >
+				<column name="supplier_id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Diagram" id="Diagram-258c" show_relation="columns" >
+		<entity schema="shop" name="customers" color="C1D8EE" x="608" y="112" />
+		<entity schema="shop" name="orders" color="C1D8EE" x="608" y="240" />
+		<entity schema="shop" name="price" color="C1D8EE" x="224" y="448" />
+		<entity schema="shop" name="producer" color="C1D8EE" x="400" y="48" />
+		<entity schema="shop" name="product_category" color="C1D8EE" x="240" y="288" />
+		<entity schema="shop" name="products" color="C1D8EE" x="48" y="48" />
+		<entity schema="shop" name="suppliers" color="C1D8EE" x="240" y="48" />
+		<callout x="688" y="544" pointer="Round" >
+			<comment><![CDATA[Это макет – схема с инструментами.
+- Создайте новые сущности, щелкнув правой кнопкой мыши по макету. 
+- Дважды щелкните по заголовкам сущностей для редактирования.
+- Для лучшего понимания схемы создайте несколько макетов.
+- Разверните модель в базе данных, сначала преобразовав ее в физический дизайн.]]></comment>
+		</callout>
+	</layout>
+</project>
