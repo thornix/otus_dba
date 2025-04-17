@@ -1,5 +1,5 @@
 ### Схема БД
-1) Схема БД создана в программе DBSchema. 
-![Alt text](https://github.com/otus2025/database_design/blob/ba68e7ec17a622f8f3d5a06f5e18d844ecc9b4f7/shop.jpg)
+1) Схема БД создана в [drawsql.app](https://drawsql.app/). 
+![Alt text]([https://github.com/thornix/otus_dba/blob/e1ca3945cbfcee453da845a02fdfa0c6345a471d/hw1_database_design/drawSQL-image-export-2025-04-17.png])
 ### Примеры бизнес-задач которые решает база
 1) Интернет магазин
