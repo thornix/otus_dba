@@ -9,3 +9,6 @@
    select name from products where manufacturer_id = (select id from manufacturer where name like 'Acer')
 5) Поиск товара по цене
    select * from products where price_id = (select id from prices where price = '52000')
+
+Схема БД:
+![Alt text](https://github.com/thornix/otus_dba/blob/main/hw2_dbms_components/drawSQL-image-export-2025-04-18.png)
