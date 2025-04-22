@@ -1,8 +1,8 @@
 <u> Кейсы: </u>
 1) Выгрузка покупок кастомера:  
-select * from orders where customer_id = (select id from customers where name like 'Ivan')  
-С целью ускорения поиска ордеров по customer_id, содаём индекс:  
-CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");
+*SELECT * FROM orders WHERE customer_id = (SELECT id FROM customers WHERE name LIKE 'Ivan');*  
+С целью ускорения поиска ордеров по customer_id, содаём индекс:    
+*CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*
 --- 
 2) Количество покупок товаров определённной категории:  
 > select sum(id) from products where category_id = (select id from category where name like 'notebooks')
