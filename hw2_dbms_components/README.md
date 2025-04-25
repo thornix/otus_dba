@@ -19,6 +19,9 @@
 * плюс 2 балла за красивое решение  
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
+## **Схема БД:**
+![sb_scheme](https://github.com/thornix/otus_dba/blob/main/hw2_dbms_components/drawSQL-image-export.png)
+
 <u> Кейсы: </u>
 1) Выгрузка покупок кастомера:  
 *SELECT * FROM orders WHERE customer_id = (SELECT id FROM customers WHERE name LIKE 'Ivan');*  
