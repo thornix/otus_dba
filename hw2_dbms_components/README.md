@@ -25,7 +25,7 @@
 <u> Кейсы: </u>
 1) Выгрузка покупок кастомера:  
 *SELECT * FROM orders WHERE customer_id = (SELECT id FROM customers WHERE name LIKE 'Ivan');*  
-С целью ускорения поиска ордеров по customer_id, содаём индекс:    
+*Имеется кардинальность поля - customer_id, содаём индекс:*    
 *CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*
 --- 
 2) Количество покупок товаров определённной категории:  
