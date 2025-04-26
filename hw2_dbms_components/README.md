@@ -33,7 +33,7 @@
 *CREATE INDEX "customers_email_index" ON "customers"("Email");*  
 *CREATE INDEX "customers_phone_index" ON "customers"("Phone");*  
 
-3) Для таблицы - PRODUCTS возможна кардинальность полей - name, supplier_id, manufacturer_id, price_id, category_id:
+3) Для таблицы - PRODUCTS возможна кардинальность полей - name, supplier_id, manufacturer_id, price_id, category_id:  
 *CREATE INDEX "products_name_index" ON "products"("name");*    
 *CREATE INDEX "products_category_id_index" ON "products"("category_id");*    
 *CREATE INDEX "products_supplier_id_index" ON "products"("supplier_id");*    
