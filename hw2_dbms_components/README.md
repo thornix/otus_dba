@@ -22,19 +22,29 @@
 ## **Схема БД:**
 ![sb_scheme](https://github.com/thornix/otus_dba/blob/main/hw2_dbms_components/drawSQL-image-export.png)
 
-<u> Кейсы: </u>
-1) Выгрузка покупок кастомера:  
-*SELECT * FROM orders WHERE customer_id = (SELECT id FROM customers WHERE name LIKE 'Ivan');*  
-*Имеется кардинальность поля - customer_id, содаём индекс:*    
+<u> Решение: </u>
+1) Для таблицы - ORDERS возможна кардинальность полей - customer_id, product_id, date:  
 *CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*
---- 
-2) Количество покупок товаров определённной категории:  
-> select sum(id) from products where category_id = (select id from category where name like 'notebooks')
-3) Количество покупок определённого товара:  
-> select sum(id) from orders where product_id = (select id from products where name like 'Acer Aspire 3 A315-59-39S9')
-4) Поиск всех товаров определённого производителя:  
-> select name from products where manufacturer_id = (select id from manufacturer where name like 'Acer')
-5) Поиск товара по цене:  
-> select * from products where price_id = (select id from prices where price = '52000')
+*CREATE INDEX "orders_product_id_index" ON "orders"("product_id");*  
+*CREATE INDEX "orders_date_index" ON "orders"("date");*
+
+2) Для таблицы - CUSTOMERS возможна кардинальность полей - FirstName, LastName, Phone, Email:   
+*CREATE INDEX "customers_firstname_lastname_index" ON "customers"("FirstName", "LastName");*  
+*CREATE INDEX "customers_email_index" ON "customers"("Email");*  
+*CREATE INDEX "customers_phone_index" ON "customers"("Phone");*  
+
+3) Для таблицы - PRODUCTS возможна кардинальность полей - name, supplier_id, manufacturer_id, price_id, category_id:
+*CREATE INDEX "products_name_index" ON "products"("name");*    
+*CREATE INDEX "products_category_id_index" ON "products"("category_id");*    
+*CREATE INDEX "products_supplier_id_index" ON "products"("supplier_id");*    
+*CREATE INDEX "products_price_id_index" ON "products"("price_id");*  
+
+4) Для таблицы - MANUFACTURER возможна кардинальность полей - name, phone, email:  
+*CREATE INDEX "manufacturer_name_index" ON "manufacturer"("name");*   
+*CREATE INDEX "manufacturer_phone_index" ON "manufacturer"("phone");*  
+*CREATE INDEX "manufacturer_email_index" ON "manufacturer"("email");*    
+
+  
+
 
 
