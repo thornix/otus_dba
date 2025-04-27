@@ -42,8 +42,13 @@
 4) Для таблицы - MANUFACTURER возможна кардинальность полей - name, phone, email:  
 *CREATE INDEX "manufacturer_name_index" ON "manufacturer"("name");*   
 *CREATE INDEX "manufacturer_phone_index" ON "manufacturer"("phone");*  
-*CREATE INDEX "manufacturer_email_index" ON "manufacturer"("email");*    
+*CREATE INDEX "manufacturer_email_index" ON "manufacturer"("email");*
 
+5) Для таблицы - PRICES возможна кардинальность поля - price:
+*CREATE INDEX "prices_price_index" ON "prices"("price");*
+
+6) Для таблицы - CATEGORY возможна кардинальность поля - name: 
+*CREATE INDEX "category_name_index" ON "category"("name");*
   
 
 
