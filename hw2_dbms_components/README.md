@@ -51,8 +51,7 @@
 *CREATE INDEX "prices_price_index" ON "prices"("price");*
 
 7) Для таблицы - CATEGORY возможна кардинальность поля - name:   
-*CREATE INDEX "category_name_index" ON "category"("name");*
+*CREATE INDEX "category_name_index" ON "category"("name");*  
   
-
 
 
