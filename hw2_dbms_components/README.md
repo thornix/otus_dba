@@ -24,7 +24,7 @@
 
 <u> Решение: </u>
 1) Для таблицы - ORDERS возможна кардинальность полей - customer_id, product_id, date:  
-Поля - customer_id, product_id используются для выгрузок вида:  
+Поля - customer_id, product_id и date могут использоватся для выгрузок:  
 *select * from orders where customer_id = 1 or product_id = 1 and date between to_date('29042025','DDMMYYYY') and to_date('29042025','DDMMYYYY');*  
 Создание индексов:     
 *CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*  
