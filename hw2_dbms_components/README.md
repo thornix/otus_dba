@@ -29,7 +29,11 @@
 Создание индексов:     
 *CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*  
 *CREATE INDEX "orders_product_id_index" ON "orders"("product_id");*    
-*CREATE INDEX "orders_date_index" ON "orders"("date");*  
+*CREATE INDEX "orders_date_index" ON "orders"("date");*
+Ограничение полей:
+Поля FirstName, LastName не могут быть пустыми.
+*ALTER TABLE customers ALTER column "FirstName" set not null;*    
+*ALTER TABLE customers ALTER column "LastName" set not null;*  
 
 3) Для таблицы - CUSTOMERS возможна кардинальность полей - FirstName, LastName, Phone, Email:   
 *CREATE INDEX "customers_firstname_lastname_index" ON "customers"("FirstName", "LastName");*  
