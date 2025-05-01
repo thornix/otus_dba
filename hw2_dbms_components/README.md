@@ -30,14 +30,19 @@
 *CREATE INDEX "orders_customer_id_index" ON "orders"("customer_id");*  
 *CREATE INDEX "orders_product_id_index" ON "orders"("product_id");*    
 *CREATE INDEX "orders_date_index" ON "orders"("date");*  
-Ограничение полей FirstName, LastName не могут быть пустыми:    
-*ALTER TABLE customers ALTER column "FirstName" set not null;*      
-*ALTER TABLE customers ALTER column "LastName" set not null;*    
+Ограничение полей customer_id, product_id, date, sum не могут быть пустыми:      
+*ALTER TABLE orders ALTER column "customer_id" set not null;*        
+*ALTER TABLE orders ALTER column "product_id" set not null;*  
+*ALTER TABLE orders ALTER column "sum" set not null;*  
+*ALTER TABLE orders ALTER column "date" set not null;*  
 
 3) Для таблицы - CUSTOMERS возможна кардинальность полей - FirstName, LastName, Phone, Email:   
 *CREATE INDEX "customers_firstname_lastname_index" ON "customers"("FirstName", "LastName");*  
 *CREATE INDEX "customers_email_index" ON "customers"("Email");*  
 *CREATE INDEX "customers_phone_index" ON "customers"("Phone");*  
+Ограничение полей FirstName, LastName не могут быть пустыми:       
+*ALTER TABLE customers ALTER column "FirstName" set not null;*      
+*ALTER TABLE customers ALTER column "LastName" set not null;*
 
 4) Для таблицы - PRODUCTS возможна кардинальность полей - name, supplier_id, manufacturer_id, price_id, category_id:  
 *CREATE INDEX "products_name_index" ON "products"("name");*    
