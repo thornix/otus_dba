@@ -35,6 +35,8 @@
 *ALTER TABLE orders ALTER column "product_id" set not null;*  
 *ALTER TABLE orders ALTER column "sum" set not null;*  
 *ALTER TABLE orders ALTER column "date" set not null;*  
+Сумма не может быть меньше илиравна 0:  
+*ALTER TABLE orders ADD CHECK(sum > 0);*  
 
 3) Для таблицы - CUSTOMERS возможна кардинальность полей - FirstName, LastName, Phone, Email:   
 *CREATE INDEX "customers_firstname_lastname_index" ON "customers"("FirstName", "LastName");*  
