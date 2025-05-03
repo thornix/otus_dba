@@ -59,8 +59,10 @@
 
 6) Для таблицы - PRICES возможна кардинальность поля - price:  
 *CREATE INDEX "prices_price_index" ON "prices"("price");*
+Цена не может быть меньше 0:
+ALTER TABLE prices ADD CHECK(price > 0);
 
-7) Для таблицы - CATEGORY возможна кардинальность поля - name:   
+8) Для таблицы - CATEGORY возможна кардинальность поля - name:   
 *CREATE INDEX "category_name_index" ON "category"("name");*  
   
 
