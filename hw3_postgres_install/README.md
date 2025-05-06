@@ -16,4 +16,10 @@
 * плюс 2 балла за красивое решение  
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
-<u> Решение: </u>
+<u> Решение:  </u>
+
+Задание1:  
+![console](https://github.com/thornix/otus_dba/blob/main/hw3_postgres_install/task1.jpg)
+
+Задание2:  
+![dbeaver](https://github.com/thornix/otus_dba/blob/main/hw3_postgres_install/task2.jpg)
