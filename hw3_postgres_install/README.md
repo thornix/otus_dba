@@ -18,6 +18,8 @@
 
 <u> Решение:  </u>
 
+Postgres сервер установлен на VDS от h2nexus(1 vCPU / 1GB RAM / 10GB), на OS Ubuntu 22.04  
+
 Задание1:  
 ![console](https://github.com/thornix/otus_dba/blob/main/hw3_postgres_install/task1.jpg)
 
