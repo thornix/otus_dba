@@ -11,8 +11,8 @@ GRANT ALL PRIVILEGES ON DATABASE shopdb TO shopdb_adm;
 -- Подключение к shopdb от пользователя shopdb_adm:
 psql -U shopdb_adm -p 5432 -h localhost shopdb
 
-----Создаём схему:
-CREATE SCHEMA online_shop;
+-- Создаём схему:
+CREATE SCHEMA online_shop AUTHORIZATION shopdb_adm;
 
 -- Создаём роли:
 CREATE ROLE "read_only_role_shopdb";
@@ -31,6 +31,7 @@ GRANT read_write_role_shopdb TO svc_backend;
 GRANT read_only_role_shopdb TO svc_reports;
 
 ----Создаём таблицы:
+
 
 
 
