@@ -1,36 +1,43 @@
--- Создаём базу данных:
-CREATE DATABASE shopdb;
+-- Создание табличного пространства:
+\! mkdir /var/lib/postgresql/14/main/shopdb
+\! chown postgres:postgres /var/lib/postgresql/14/main/shopdb
+create TABLESPACE shopdb LOCATION '/var/lib/postgresql/14/main/shopdb';
 
--- Создаём администратора для БД shopdb:
-CREATE USER shopdb_adm WITH PASSWORD '1111' CREATEROLE;
+-- Создание базы данных:
+create DATABASE shopdb TABLESPACE shopdb;
 
--- Назначаем права:
-ALTER DATABASE shopdb OWNER TO shopdb_adm;
-GRANT ALL PRIVILEGES ON DATABASE shopdb TO shopdb_adm;
+-- Подключение к БД:
+\с shopdb;
 
--- Подключение к shopdb от пользователя shopdb_adm:
-psql -U shopdb_adm -p 5432 -h localhost shopdb
+-- Создание ролей:
+create role "read_only_role_shopdb_shopdb";
+create role "read_write_role_shopdb_shopdb";
 
--- Создаём схему:
-CREATE SCHEMA online_shop AUTHORIZATION shopdb_adm;
+-- Создание схемы:
+create schema if not exists shopdb;
+set search_path to shopdb;
 
--- Создаём роли:
-CREATE ROLE "read_only_role_shopdb";
-CREATE ROLE "read_write_role_shopdb";
+-- Назначение прав на схему:
+GRANT select ON ALL TABLES IN SCHEMA shopdb TO read_only_role_shopdb_shopdb;
+GRANT select,insert,update,delete ON ALL TABLES IN SCHEMA shopdb TO read_only_role_shopdb_shopdb;
 
--- Назначаем права на схему для ролей:
-GRANT SELECT ON ALL TABLES IN SCHEMA online_shop TO read_only_role_shopdb;
-GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA online_shop TO read_write_role_shopdb;
+-- Создание пользоваталей:
+create user svc_backend_shopdb with PASSWORD '2222';
+create user svc_reports_shopdb with PASSWORD '3333';
 
--- Создаём пользоваталей:
-CREATE USER svc_backend WITH PASSWORD '2222';
-CREATE USER svc_reports WITH PASSWORD '3333';
+-- Назначение ролей:
+GRANT read_write_role_shopdb TO svc_backend_shopdb;
+GRANT read_only_role_shopdb TO svc_reports_shopdb;
 
--- Назначаем роли:
-GRANT read_write_role_shopdb TO svc_backend;
-GRANT read_only_role_shopdb TO svc_reports;
-
-----Создаём таблицы:
+----Создание таблиц:
+create table "products"(
+    "id" bigint not null,
+    "name" char(255) null,
+    "category_id" bigint not null,
+    "supplier_id" bigint not null,
+    "manufacturer_id" bigint not null,
+    "price_id" bigint not null
+)  tablespace shopdb;
 
 
 
