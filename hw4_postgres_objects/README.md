@@ -18,3 +18,7 @@ DDL скрипты для postgres
 * Минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **Решение:**  
+Запуск скрипта:  
+psql -U postgres -p 5432 -f script_ddl_create_db_objects.sql  
+
+[script_ddl_create_db_objects.sql](https://github.com/thornix/otus_dba/blob/main/hw4_postgres_objects/script_ddl_create_db_objects.sql)  
