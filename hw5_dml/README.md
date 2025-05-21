@@ -11,7 +11,7 @@ DML в PostgreSQL
 **<u>Описание/Пошаговая инструкция выполнения домашнего задания:</u>**  
 * Напишите запрос по своей базе с регулярным выражением, добавьте пояснение, что вы хотите найти.  
 * Напишите запрос по своей базе с использованием LEFT JOIN и INNER JOIN, как порядок соединений в FROM влияет на результат? Почему?  
-Напишите запрос на добавление данных с выводом информации о добавленных строках.  
+* Напишите запрос на добавление данных с выводом информации о добавленных строках.  
 * Напишите запрос с обновлением данные используя UPDATE FROM.  
 * Напишите запрос для удаления данных с оператором DELETE используя join с другой таблицей с помощью using.  
 
@@ -28,5 +28,8 @@ DML в PostgreSQL
 **<u>Решение:</u>**  
 1. Поиск всех имён начинающихся с A или B:  
 *SELECT * FROM customers WHERE "FirstName" SIMILAR TO '[VB]%';*  
-2. Вывести все имя,фамилия,сумма из таблиц customers и orders, где имя наичнается на Vit:    
-*select c."FirstName", c."LastName", o.sum from customers c left join orders o on c."ID" = o.customer_id where c."FirstName" like 'Vit%';*
+2. Вывести все результаты из таблицы customers, и если есть совпадения,то вывести из orders(LEFT JOIN):    
+*select c."FirstName", c."LastName", o.sum from customers c left join orders o on c."ID" = o.customer_id;*
+3. Вывести только тех всех покупателей которые имели покупки(INNER JOIN):  
+*select c."FirstName", o.sum from customers c inner join orders o on c."ID" = o.customer_id;* 
+4. 
