@@ -26,5 +26,7 @@ DML в PostgreSQL
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **<u>Решение:</u>**  
-Поиск всех имён начинающихся с A или B:  
-*SELECT * FROM customers WHERE "FirstName" SIMILAR TO '[VB]%';*      
+1. Поиск всех имён начинающихся с A или B:  
+*SELECT * FROM customers WHERE "FirstName" SIMILAR TO '[VB]%';*  
+2. Вывести все имя,фамилия,сумма из таблиц customers и orders, где имя наичнается на Vit:    
+*select c."FirstName", c."LastName", o.sum from customers c left join orders o on c."ID" = o.customer_id where c."FirstName" like 'Vit%';*
