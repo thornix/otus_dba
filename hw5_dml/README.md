@@ -32,5 +32,7 @@ DML в PostgreSQL
 *select c."FirstName", c."LastName", o.sum from customers c left join orders o on c."ID" = o.customer_id;*
 3. Вывести только тех всех покупателей которые имели покупки(INNER JOIN):  
 *select c."FirstName", o.sum from customers c inner join orders o on c."ID" = o.customer_id;* 
-4. Порядок соединений в FROM определяет(напрмер для LEFT JOIN, RIGHT JOIN), какая таблица будет являться базовой и к какой будут добавляться данные из других таблиц.  
-5. 
+*Порядок соединений в FROM определяет(напрмер для LEFT JOIN, RIGHT JOIN), какая таблица будет являться базовой и к какой будут добавляться данные из других таблиц.*    
+4. *insert into customers values (3, 'Vladimir', 'Petrov', 'male', to_date('YYYY-MM-DD', '19860224'), 'vladimir91@gmail.com', 89024451129, to_date('YYYY-MM-DD','20250525')) returning \*;*  
+5. *update customers set FirstName = (select name from customers p where p.id = 2) where id = 1;*  
+6. *delete from orders using customers where orders.customer_id = customers."ID";*
