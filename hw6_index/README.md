@@ -37,10 +37,12 @@
 
 **<u>Решение:</u>**  
 
-1. Создание индекса:  
-    ``CREATE INDEX "orders_sum_index" ON "orders"("sum");``
+1. Создание индекса:   
+``CREATE INDEX "orders_sum_index" ON "orders"("sum");``
 
-2. Вывод explain после создания индекса для запроса: explain (analyze) select * from orders where sum = 7500:  
+2. Вывод explain после создания индекса для запроса:
+explain (analyze) select * from orders where sum = 7500:
+Результат:  
    ``Index Scan using idx_orders_sum on orders  (cost=0.43..145115.82 rows=4966422 width=36) (actual time=3.511..3441.949 rows=5000000 loops=1)
   Index Cond: (sum = 7500)
 Planning Time: 6.994 ms
@@ -53,7 +55,9 @@ Execution Time: 3735.060 ms``
 
 4. Реализовать индекс для полнотекстового поиска:  
 CREATE EXTENSION pg_trgm;  
-CREATE INDEX gin_idx_products ON products USING gin (name gin_trgm_ops);  
+CREATE INDEX gin_idx_products ON products USING gin (name gin_trgm_ops);
+explain (analyze) select * from category where name like '%73861a5e'
+Результат:
 ``Bitmap Heap Scan on category  (cost=164.78..534.99 rows=100 width=41) (actual time=1.719..1.720 rows=1 loops=1)
   Recheck Cond: ((name)::text ~~ '%73861a5e'::text)
   Heap Blocks: exact=1
@@ -62,5 +66,5 @@ CREATE INDEX gin_idx_products ON products USING gin (name gin_trgm_ops);
 Planning Time: 0.990 ms
 Execution Time: 1.774 ms``
 
-5. 
+6. 
 
