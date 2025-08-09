@@ -50,4 +50,17 @@ JIT:
   Timing: Generation 5.732 ms, Inlining 0.000 ms, Optimization 0.000 ms, Emission 0.000 ms, Total 5.732 ms
 Execution Time: 3735.060 ms``
 
-3. 
+
+4. Реализовать индекс для полнотекстового поиска:  
+CREATE EXTENSION pg_trgm;  
+CREATE INDEX gin_idx_products ON products USING gin (name gin_trgm_ops);  
+``Bitmap Heap Scan on category  (cost=164.78..534.99 rows=100 width=41) (actual time=1.719..1.720 rows=1 loops=1)
+  Recheck Cond: ((name)::text ~~ '%73861a5e'::text)
+  Heap Blocks: exact=1
+  ->  Bitmap Index Scan on category_gin_idx  (cost=0.00..164.75 rows=100 width=0) (actual time=1.327..1.328 rows=1 loops=1)
+        Index Cond: ((name)::text ~~ '%73861a5e'::text)
+Planning Time: 0.990 ms
+Execution Time: 1.774 ms``
+
+5. 
+
