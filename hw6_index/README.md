@@ -40,20 +40,7 @@
 1. Создание индекса:  
     ``CREATE INDEX "orders_sum_index" ON "orders"("sum");``
 
-
-2. Вывод explain до создания индекса для запроса: explain (analyze) select * from orders where sum = 7500:  
-``Seq Scan on orders  (cost=0.00..170111.55 rows=4966422 width=36) (actual time=1854.197..5287.217 rows=5000000 loops=1)
-  Filter: (sum = 7500)
-  Rows Removed by Filter: 3165324
-Planning Time: 1.493 ms
-JIT:
-  Functions: 2
-  Options: Inlining false, Optimization false, Expressions true, Deforming true
-  Timing: Generation 1.806 ms, Inlining 0.000 ms, Optimization 9.759 ms, Emission 60.318 ms, Total 71.883 ms
-Execution Time: 6358.191 ms``  
-
-
-3. Вывод explain после создания индекса для запроса: explain (analyze) select * from orders where sum = 7500:  
+2. Вывод explain после создания индекса для запроса: explain (analyze) select * from orders where sum = 7500:  
    ``Index Scan using idx_orders_sum on orders  (cost=0.43..145115.82 rows=4966422 width=36) (actual time=3.511..3441.949 rows=5000000 loops=1)
   Index Cond: (sum = 7500)
 Planning Time: 6.994 ms
@@ -62,3 +49,5 @@ JIT:
   Options: Inlining false, Optimization false, Expressions true, Deforming true
   Timing: Generation 5.732 ms, Inlining 0.000 ms, Optimization 0.000 ms, Emission 0.000 ms, Total 5.732 ms
 Execution Time: 3735.060 ms``
+
+3. 
