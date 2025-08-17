@@ -63,5 +63,5 @@ explain (analyze) select * from category where name like '%73861a5e'
 Planning Time: 0.990 ms
 Execution Time: 1.774 ms``  
 
-4. Реализовать индекс на часть таблицы или индекс на поле с функцией:  
-
+4. Реализовать индекс на часть таблицы или индекс на поле с функцией:    
+CREATE INDEX idx_orders_id_100 on orders(id) where id < 100;
