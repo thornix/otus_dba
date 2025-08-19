@@ -63,6 +63,19 @@ Execution Time: 3735.060 ms``
 Planning Time: 0.990 ms
 Execution Time: 1.774 ms``  
 
+
 4. Реализовать индекс на часть таблицы или индекс на поле с функцией:    
-``create index idx_orders_id_100 on orders(id) where id < 100;``
+``create index idx_orders_id_100 on orders(id) where id < 100;``  
+
+
+5. Создать индекс на несколько полей:
+``create index idx_orders_date_sum ON orders (date, sum);``
+
+
+6. Написать комментарии к каждому из индексов:
+``COMMENT ON INDEX idx_orders_date_sum IS 'Этот индекс ускоряет поиск по date и sum';``
+
+
+7. Описать что и как делали и с какими проблемами столкнулись:
+
 
