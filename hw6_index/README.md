@@ -76,6 +76,7 @@ Execution Time: 1.774 ms``
 ``COMMENT ON INDEX idx_orders_date_sum IS 'Этот индекс ускоряет поиск по date и sum';``
 
 
-7. Описать что и как делали и с какими проблемами столкнулись:
+7. Описать что и как делали и с какими проблемами столкнулись:  
 
-
+Задания выполнялись в Dbeaver на тестовой БД интернет магазина. Сложности были в понимаеии GIN индексов, а также в создании индекса на часть таблицы т.к требуются не изменяемые данные. Т.е так не получитсья сделать - create index idx_orders_date on orders(date) where date > to_date('2025-01-01', 'YYYY-MM-DD');
+выходит ошибка - functions in index predicate must be marked IMMUTABLE
