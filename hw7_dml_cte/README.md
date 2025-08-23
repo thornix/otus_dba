@@ -49,11 +49,17 @@ SELECT year_game, sum(points) FROM points_year_game GROUP BY year_game;
 ```
 
 8) используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.
-
+```
+SELECT sum(points),
+		lag(year_game) OVER(order BY year_game) prev_year,
+		lead(year_game) OVER(order BY year_game) next_year
+FROM statistic GROUP by year_game;
+```
 
 Критерии оценки:  
 * Выполнение ДЗ: 10 баллов  
 * плюс 2 балла за красивое решение  
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
+
 
 
