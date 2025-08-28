@@ -15,7 +15,7 @@ create role "read_write_role_online_shop";
 
 -- Создание схемы:
 create schema if not exists online_shop;
-ALTER DATABASE search_path SET search_path TO online_shop;
+ALTER DATABASE online_shop SET search_path TO online_shop;
 
 -- Назначение прав на схему:
 GRANT SELECT ON ALL TABLES IN SCHEMA online_shop TO read_only_role_online_shop;
