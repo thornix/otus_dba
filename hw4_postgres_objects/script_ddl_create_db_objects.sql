@@ -25,6 +25,9 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA online_shop TO read_wr
 create user svc_backend with PASSWORD '2222';
 create user svc_reports with PASSWORD '3333';
 
+--Залание пароля для postgres:
+alter user postgres with password '1111';
+
 -- Назначение ролей:
 GRANT read_write_role_online_shop TO svc_backend;
 GRANT read_only_role_online_shop TO svc_reports;
