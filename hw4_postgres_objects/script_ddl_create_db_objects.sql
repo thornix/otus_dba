@@ -4,7 +4,7 @@
 create TABLESPACE online_shop LOCATION '/var/lib/postgresql/14/main/online_shop';
 
 -- Создание базы данных:
-create DATABASE shopdb TABLESPACE online_shop;
+create DATABASE online_shop TABLESPACE online_shop;
 
 -- Подключение к БД:
 \c shopdb
