@@ -90,9 +90,12 @@ su postgres
 rm -rf /var/lib/postgresql/14/main/*  
 
 4. Проверка работы репликации:  
-su postgres  
-pg_basebackup -R -h 192.168.222.142 -U rep_user -D /var/lib/postgresql/14/main -P  
+sudo -u postgres pg_basebackup -P -R -X stream -c fast -h 10.10.1.91 -U shop_repl -p 5432 -D /var/lib/postgresql/16/main -v
+Примечание:
+Если есть табличное пространство будет ошибка:  could not create directory "/var/lib/postgresql/16/main/online_shop": File exists
+Решение: --tablespace-mapping  
 
-5. Запустить сервис postgresql на подчинённом сервере:  
+6. Запустить сервис postgresql на подчинённом сервере:  
 systemctl start postgresql
+
 
