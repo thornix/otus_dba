@@ -31,41 +31,21 @@
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **Решение:**  
-Логическая репликация на примере БД - otus:
--------------------------------------------
-1. Необходимо в файле postgresql.conf сменить значение параметра wal_level:
-wal_level = logical
-
-2. В файле pg_hba.conf на мастере добавляем строку с IP адресом подчиненного сервера:
-host otus postgres 192.168.222.136/32 trust
-
-3. Делаем дамп всей БД и дамп схемы базы otus:
-pg_dumpall --database=otus --host=192.168.222.136 --no-password --globals-only --no-privileges | psql
-pg_dump --dbname otus --host=192.168.222.136 --no-password --create --schema-only | psql
-
-4. Cоздать публикацию на стороне сервера мастер:
-CREATE PUBLICATION db_pub FOR ALL TABLES;
-
-5. Добавляем подписку на стороне подчиненного сервера:
-CREATE SUBSCRIPTION db_sub CONNECTION 'host=192.168.222.136 dbname=otus' PUBLICATION db_sub;
-
 **Настройка физической репликации:**    
 
-Настройка Master:  
------------------  
+Настройка на Master:   
 1. Под аккаунтом postgres необходимо создать пользователя для репликации:  
-``sudo -i -u postgres``    
-``psql``    
-``createuser --replication -P rep_user``    
+``sudo -i -u postgres psql online_shop``        
+``createuser --replication -P shop_repl;``    
 
 2. Настройки в файле postgresql.conf    
 Определить расположение файла конфигурации:
 ``psql -c 'show config_file;'``    
-``mcedit /etc/postgresql/14/main/postgresql.conf``    
+``mcedit /etc/postgresql/16/main/postgresql.conf``    
 Добавить настройки:    
 ```
 archive_mode = on                 
-archive_command = 'cp %p /oracle/pg_data/archive/%f'   
+archive_command = 'cp %p /data/pg_data/archive/%f'   
 max_wal_senders = 10              
 wal_keep_segments = 50            
 wal_level = replica                       
@@ -73,9 +53,9 @@ wal_log_hints = on
 ```
 
 4. Настройки в файле pg_hba.conf    
-``mcedit /etc/postgresql/14/main/pg_hba.conf``    
+``mcedit /etc/postgresql/16/main/pg_hba.conf``    
 Добавить настройки:    
-``host replication rep_user 192.168.222.136/32 scrum-sha-265``    
+``host replication shop_repl 192.168.222.136/32 scrum-sha-265``    
 
 5. Перезапустить postgres    
 ``systemctl restart postgres``      
@@ -101,9 +81,10 @@ wal_log_hints = on
 6. Запустить сервис postgresql на подчинённом сервере:    
 ``systemctl start postgresql``
 
-Результат выполнения на мастере:  
+Результат выполнения комманды на мастере:  
 ``psql -x -c "SELECT * FROM pg_stat_replication;"``  
 
+![fisicl_replication](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/Fisicle_replication.png)
 
 
 
