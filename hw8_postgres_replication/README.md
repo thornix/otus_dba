@@ -86,6 +86,13 @@ wal_log_hints = on
 
 ![fisicl_replication](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/Fisicle_replication.png)
 
+**Ссылки:**    
+https://timeweb.cloud/tutorials/postgresql/kak-nastroit-fizicheskuyu-potokovuyu-replikatsiyu-s-postgresql-12-na-ubuntu-2004  
+https://habr.com/ru/companies/otus/articles/710956/  
+https://serhatcelik.wordpress.com/category/postgresql/  
+
+
+
 
 
 
