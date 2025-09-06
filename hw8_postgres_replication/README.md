@@ -81,12 +81,12 @@ wal_log_hints = on
 6. Запустить сервис postgresql на подчинённом сервере:    
 ``systemctl start postgresql``
 
-Результат выполнения комманды на мастере:  
+Результат:  
 ``psql -x -c "SELECT * FROM pg_stat_replication;"``  
 
 ![stat_replication](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/stat_replication.jpg)
 
-Результат выполнения комманды на мастере:  
+Результат:  
 ``psql -x -c "SELECT * FROM pg_replication_slots;"``  
 
 ![slot_stanbay](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/slot_standby.png) 
@@ -95,6 +95,7 @@ wal_log_hints = on
 https://timeweb.cloud/tutorials/postgresql/kak-nastroit-fizicheskuyu-potokovuyu-replikatsiyu-s-postgresql-12-na-ubuntu-2004  
 https://habr.com/ru/companies/otus/articles/710956/  
 https://serhatcelik.wordpress.com/category/postgresql/  
+
 
 
 
