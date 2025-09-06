@@ -51,23 +51,22 @@ logging_collector = on
 2. Создание отдельных прав только для репликации:  
 ```psql -x -c "CREATE ROLE relication_user WITH REPLICATION PASSWORD 'password' LOGIN;"```  
 
-3. Добавление доступа для реплики:  
-```mcedit /etc/postgresql/12/main/pg_hba.conf```  
-```host  replication   relication_user  your-replica-IP/32  md5```  
+3. Добавление доступа для реплики:
+``echo "host  replication   relication_user  your-replica-IP/32  md5" >> /etc/postgresql/16/main/pg_hba.conf`` 
 
-4. Перезапуск кластера:   
+5. Перезапуск кластера:   
 ```sudo systemctl restart postgresql@12-main```  
 
-5. Создание слота:  
+6. Создание слота:  
 ```psql -x -c "SELECT pg_create_physical_replication_slot('standby_slot');"```  
 
 
 ***Изменения на Slave:***  
 1. Очистить каталог данных реплики от всех файлов:  
-```sudo -u postgres rm -r /var/lib/postgresql/12/main/*```  
+```sudo -u postgres rm -r /var/lib/postgresql/16/main/*```  
 
 2. Копирование файлов данных первичного из мастера:  
-```sudo -u postgres pg_basebackup -P -R -X stream -c fast -h your_primary_IP_address -U relication_user -p 5432 -D /var/lib/postgresql/12/main -v```  
+```sudo -u postgres pg_basebackup -P -R -X stream -c fast -h your_primary_IP_address -U relication_user -p 5432 -D /var/lib/postgresql/16/main -v```  
 
 3. Создать файл recovery.conf в директории кластера и добавить:  
 ```
@@ -105,6 +104,7 @@ https://serhatcelik.wordpress.com/category/postgresql/
 wal_log_hints = on Когда этот параметр имеет значение on, сервер PostgreSQL записывает в WAL всё содержимое каждой страницы при первом изменении этой страницы после контрольной точки, даже при второстепенных изменениях так называемых вспомогательных битов.
 Слот репликации в PostgreSQL — это объект, который гарантирует, что сервер-источник сохранит все необходимые WAL-файлы (журнал упреждающей записи) до тех пор, пока их не получит и не обработает потребитель репликации.
 Важно удалять неиспользуемые слоты, чтобы предотвратить накопление лишних WAL-файлов и избежать исчерпания места на диске. Существуют два основных типа: физические слоты для потоковой репликации и логические слоты для логической репликации 
+
 
 
 
