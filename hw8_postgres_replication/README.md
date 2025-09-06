@@ -31,55 +31,55 @@
 * минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **Решение:**  
-**Настройка физической репликации:**    
+Настроить физическую потоковую репликацию с PostgreSQL:
 
-Настройка на Master:   
-1. Под аккаунтом postgres необходимо создать пользователя для репликации:  
-``sudo -i -u postgres psql online_shop``        
-``createuser --replication -P shop_repl;``    
-
-2. Настройки в файле postgresql.conf    
-Определить расположение файла конфигурации:
-``psql -c 'show config_file;'``    
-``mcedit /etc/postgresql/16/main/postgresql.conf``    
-Добавить настройки:    
+**Изменения на Master:**  
+1. Разрешаем первичной БД принимать подключения от других устройств:  
 ```
+mcedit /etc/postgresql/12/main/postgresql.conf
+listen_addresses = 'your_primary_IP_address'
 archive_mode = on                 
-archive_command = 'cp %p /data/pg_data/archive/%f'   
-max_wal_senders = 10              
-wal_keep_segments = 50            
-wal_level = replica                       
+archive_command = 'cp %p /data/pg_data/archive/%f'
+wal_level = replica 
+max_wal_senders = 10
 wal_log_hints = on
+logging_collector = on
+```  
+
+2. Создание отдельных прав только для репликации:  
+```psql -x -c "CREATE ROLE relication_user WITH REPLICATION PASSWORD 'password' LOGIN;"```  
+
+3. Добавление доступа для реплики:  
+```mcedit /etc/postgresql/12/main/pg_hba.conf```  
+```host  replication   relication_user  your-replica-IP/32  md5```  
+
+4. Перезапуск кластера:   
+```sudo systemctl restart postgresql@12-main```  
+
+5. Создание слота:  
+```psql -x -c "SELECT pg_create_physical_replication_slot('standby_slot');"```  
+
+
+***Изменения на Slave:***  
+1. Очистить каталог данных реплики от всех файлов:  
+```sudo -u postgres rm -r /var/lib/postgresql/12/main/*```  
+
+2. Копирование файлов данных первичного из мастера:  
+```sudo -u postgres pg_basebackup -P -R -X stream -c fast -h your_primary_IP_address -U relication_user -p 5432 -D /var/lib/postgresql/12/main -v```  
+
+3. Создать файл recovery.conf в директории кластера и добавить:  
+```
+standby_mode='on' 
+primary_conninfo='host=your_primary_IP_address port=5432 user=relication_user password=password' 
+primary_slot_name = 'standby_slot'
 ```
 
-4. Настройки в файле pg_hba.conf    
-``mcedit /etc/postgresql/16/main/pg_hba.conf``    
-Добавить настройки:    
-``host replication shop_repl 192.168.222.136/32 scrum-sha-265``    
 
-5. Перезапустить postgres    
-``systemctl restart postgres``      
-
-Настройки на Slave:    
--------------------    
-1. Настройки в файле postgresql.conf    
-``listen_addresses = 'localhost, 192.168.1.136'``    
-
-2. Остановить postgres:  
-``systemctl stop postgresql``    
-
-3. Удалить данные из каталога main:    
-``su postgres``  
-``rm -rf /var/lib/postgresql/16/main/*``    
-
-4. Выполнить репликацию:      
-``sudo -u postgres pg_basebackup -P -R -X stream -c fast -h 10.10.1.91 -U shop_repl -p 5432 -D /var/lib/postgresql/16/main -v``  
-Примечание:  
-Если есть табличное пространство будет ошибка:  could not create directory "/var/lib/postgresql/16/main/online_shop": File exists  
-Решение: --tablespace-mapping    
-
-6. Запустить сервис postgresql на подчинённом сервере:    
-``systemctl start postgresql``
+Команды для просмотра:
+``select * from pg_stat_replication;``
+``psql -x -c "select * from pg_replication_slots;"`` 
+``show checkpoint_segments;``
+``show wal_keep_segments;``
 
 Результат:  
 ``psql -x -c "SELECT * FROM pg_stat_replication;"``  
@@ -94,7 +94,16 @@ wal_log_hints = on
 **Ссылки:**    
 https://timeweb.cloud/tutorials/postgresql/kak-nastroit-fizicheskuyu-potokovuyu-replikatsiyu-s-postgresql-12-na-ubuntu-2004  
 https://habr.com/ru/companies/otus/articles/710956/  
-https://serhatcelik.wordpress.com/category/postgresql/  
+https://serhatcelik.wordpress.com/category/postgresql/ 
+
+**Примечания:**  
+Для включения непрерывной архивации (archive_mode) и потоковой двоичной репликации необходимо использовать уровень не ниже replica
+Когда параметр archive_mode включён, полные сегменты WAL передаются в хранилище архива командой archive_command 
+Чтобы запустить сервер в режиме ведомого, создайте в каталоге данных файл standby.signal
+wal_log_hints = on Когда этот параметр имеет значение on, сервер PostgreSQL записывает в WAL всё содержимое каждой страницы при первом изменении этой страницы после контрольной точки, даже при второстепенных изменениях так называемых вспомогательных битов.
+Слот репликации в PostgreSQL — это объект, который гарантирует, что сервер-источник сохранит все необходимые WAL-файлы (журнал упреждающей записи) до тех пор, пока их не получит и не обработает потребитель репликации.
+Важно удалять неиспользуемые слоты, чтобы предотвратить накопление лишних WAL-файлов и избежать исчерпания места на диске. Существуют два основных типа: физические слоты для потоковой репликации и логические слоты для логической репликации 
+
 
 
 
