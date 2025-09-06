@@ -75,19 +75,25 @@ primary_conninfo='host=your_primary_IP_address port=5432 user=relication_user pa
 primary_slot_name = 'standby_slot'
 ```
 
-Результат:  
+Результат запроса:  
 ``psql -x -c "SELECT * FROM pg_stat_replication;"``  
 
 ![stat_replication](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/stat_replication.jpg)
 
-Результат:  
+Результат запроса:  
 ``psql -x -c "SELECT * FROM pg_replication_slots;"``  
 
 ![slot_stanbay](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/slot_standby.png) 
 
+Результат запроса:  
+``psql -x -c "select * from pg_stat_wal_receiver;"``
+
+![slot_stanbay](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/standbay_status.png) 
+
 Команды для просмотра:  
 ``select * from pg_stat_replication;``  
-``psql -x -c "select * from pg_replication_slots;"``   
+``psql -x -c "select * from pg_replication_slots;"`` 
+``psql -x -c "select * from pg_stat_wal_receiver;"``  
 ``show checkpoint_segments;``  
 ``show wal_keep_segments;``  
 
@@ -103,6 +109,7 @@ https://serhatcelik.wordpress.com/category/postgresql/
 wal_log_hints = on Когда этот параметр имеет значение on, сервер PostgreSQL записывает в WAL всё содержимое каждой страницы при первом изменении этой страницы после контрольной точки, даже при второстепенных изменениях так называемых вспомогательных битов.
 Слот репликации в PostgreSQL — это объект, который гарантирует, что сервер-источник сохранит все необходимые WAL-файлы (журнал упреждающей записи) до тех пор, пока их не получит и не обработает потребитель репликации.
 Важно удалять неиспользуемые слоты, чтобы предотвратить накопление лишних WAL-файлов и избежать исчерпания места на диске. Существуют два основных типа: физические слоты для потоковой репликации и логические слоты для логической репликации 
+
 
 
 
