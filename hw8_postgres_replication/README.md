@@ -69,7 +69,10 @@ logging_collector = on
 2. Скопироть данные с мастера:  
 ``sudo -u postgres pg_basebackup -P -R -X stream -c fast -h primary_IP -U relication_user -p 5432 -D /var/lib/postgresql/16/main -v``
 
-3. Перезапустить postgres:
+3. Для отставания реплики от мастера на 5 минут добавить настройку:
+``echo "recovery_min_apply_delay = 300000" >> /etc/postgresql/16/main/postgresql.conf``  
+
+5. Перезапустить postgres:
 ``systemctl restart postgresql@16-main``
 
 Результат запроса:  
@@ -91,6 +94,7 @@ logging_collector = on
 ``show wal_keep_segments;``    
 
 ***Логическая репликация:***  
+
 
 
 
