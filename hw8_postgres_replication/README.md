@@ -88,11 +88,11 @@ logging_collector = on
 ![slot_stanbay](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/standbay_status.png) 
 
 Команды для просмотра:  
-``select * from pg_stat_replication;``  
-``psql -x -c "select * from pg_replication_slots;"`` 
-``psql -x -c "select * from pg_stat_wal_receiver;"``  
-``show checkpoint_segments;``  
-``show wal_keep_segments;``  
+``select * from pg_stat_replication;``    
+``psql -x -c "select * from pg_replication_slots;"``   
+``psql -x -c "select * from pg_stat_wal_receiver;"``    
+``show checkpoint_segments;``    
+``show wal_keep_segments;``    
 
 **Ссылки:**    
 https://timeweb.cloud/tutorials/postgresql/kak-nastroit-fizicheskuyu-potokovuyu-replikatsiyu-s-postgresql-12-na-ubuntu-2004  
@@ -106,6 +106,7 @@ https://serhatcelik.wordpress.com/category/postgresql/
 wal_log_hints = on Когда этот параметр имеет значение on, сервер PostgreSQL записывает в WAL всё содержимое каждой страницы при первом изменении этой страницы после контрольной точки, даже при второстепенных изменениях так называемых вспомогательных битов.
 Слот репликации в PostgreSQL — это объект, который гарантирует, что сервер-источник сохранит все необходимые WAL-файлы (журнал упреждающей записи) до тех пор, пока их не получит и не обработает потребитель репликации.
 Важно удалять неиспользуемые слоты, чтобы предотвратить накопление лишних WAL-файлов и избежать исчерпания места на диске. Существуют два основных типа: физические слоты для потоковой репликации и логические слоты для логической репликации 
+
 
 
 
