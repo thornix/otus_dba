@@ -94,14 +94,41 @@ logging_collector = on
 ``show wal_keep_segments;``   
 ``pg_ctlcluster 16 main promote``  
 
-***Логическая репликация:***    
-Результат запроса:    
+***Логическая репликация:***  
+Настройка мастера: 
+1. Добавить настройки в файл: postgresql.conf  
+``echo "listen_addresses = 'Primary IP'" >> /var/lib/pgsql/16/data/postgresql.conf``    
+``echo "wal_level = logical" >> /var/lib/pgsql/16/data/postgresql.conf``
+
+2. Добавить настройки в файл: pg_hba.conf  
+``echo "host online_shop postgres Slave IP/32 trust" >> /etc/postgresql/16/main/pg_hba.conf``  
+``echo "host postgres postgres  Slave IP/32 trust" >> /etc/postgresql/16/main/pg_hba.conf``
+
+3. Перезапуск postgres:  
+``systemctl restart postgresql``  
+
+4. Добавить публикацию:  
+``CREATE PUBLICATION online_shop_pub FOR ALL TABLES;``    
+
+Настройки на Slave:      
+1. Добавить настройки в файл: postgresql.conf  
+``echo "wal_level = logical" >> /var/lib/pgsql/16/data/postgresql.conf``  
+
+2. Перезапуск postgres:  
+``systemctl restart postgresql``  
+
+3. Создание подписки:  
+``CREATE SUBSCRIPTION online_shop_sub CONNECTION 'host=Primary IP dbname=online_shop' PUBLICATION online_shop_pub;``  
+
+
+Результат запроса:      
 ``psql -x -c "SELECT * FROM pg_stat_replication;"``  
 ![logical_primary_stat](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/logical_pg_stat.png)
 
 Результат запроса:      
 ``psql -x -c "SELECT * FROM pg_stat_subscription;"``   
 ![logical_standbay_stat](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/logical_repl_stat.jpg)
+
 
 
 
