@@ -91,10 +91,11 @@ logging_collector = on
 ``psql -x -c "select * from pg_replication_slots;"``   
 ``psql -x -c "select * from pg_stat_wal_receiver;"``    
 ``show checkpoint_segments;``    
-``show wal_keep_segments;`` 
+``show wal_keep_segments;``   
 ``pg_ctlcluster 16 main promote``  
 
 ***Логическая репликация:***  
+
 
 
 
