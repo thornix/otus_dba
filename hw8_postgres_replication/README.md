@@ -94,8 +94,14 @@ logging_collector = on
 ``show wal_keep_segments;``   
 ``pg_ctlcluster 16 main promote``  
 
-***Логическая репликация:***  
+***Логическая репликация:***    
+Результат запроса:    
+``psql -x -c "SELECT * FROM pg_stat_replication;"``  
+![logical_primary_stat](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/logical_pg_stat.png)
 
+Результат запроса:      
+``psql -x -c "SELECT * FROM pg_stat_subscription;"``   
+![logical_standbay_stat](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/logical_repl_stat.jpg)
 
 
 
