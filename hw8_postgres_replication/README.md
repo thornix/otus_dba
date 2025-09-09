@@ -86,14 +86,16 @@ logging_collector = on
 
 ![slot_stanbay](https://github.com/thornix/otus_dba/blob/58082c0b2f3e575d80a015c5f2e8e8c4b54723d4/hw8_postgres_replication/slave-show-stat.png) 
 
-Команды для просмотра:  
+Команды:    
 ``select * from pg_stat_replication;``    
 ``psql -x -c "select * from pg_replication_slots;"``   
 ``psql -x -c "select * from pg_stat_wal_receiver;"``    
 ``show checkpoint_segments;``    
-``show wal_keep_segments;``    
+``show wal_keep_segments;`` 
+``pg_ctlcluster 16 main promote``  
 
 ***Логическая репликация:***  
+
 
 
 
