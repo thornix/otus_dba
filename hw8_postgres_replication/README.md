@@ -129,6 +129,10 @@ logging_collector = on
 ``psql -x -c "SELECT * FROM pg_stat_subscription;"``   
 ![logical_standbay_stat](https://github.com/thornix/otus_dba/blob/main/hw8_postgres_replication/logical_repl_stat.jpg)
 
+Ссылка:  
+https://www.dmosk.ru/miniinstruktions.php?mini=zabbix-mysql-replication  
+
+
 
 
 
