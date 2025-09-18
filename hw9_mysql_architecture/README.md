@@ -41,9 +41,16 @@ manifest-for-linux-arm64-v8
 
 
 Результат тестирования после применения настроек оптимизации СУБД(Latency уменьшилось): 
-![after](https://github.com/thornix/otus_dba/blob/main/hw9_mysql_architecture/After_tuning.jpg)
+![after](https://github.com/thornix/otus_dba/blob/main/hw9_mysql_architecture/After_tuning.jpg)   
 
- 
+
+Файл конфигурации:  
+![settings](https://github.com/thornix/otus_dba/blob/main/hw9_mysql_architecture/my_settings.png)  
+
+
+Проект запущен в docker compose, база создана через скрипт:  
+![project_run](https://github.com/thornix/otus_dba/blob/main/hw9_mysql_architecture/project_run.jpg)
+
 
 
 
