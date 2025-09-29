@@ -17,3 +17,5 @@
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 Решение:  
+![json_screen](https://github.com/thornix/otus_dba/blob/main/hw10_mysql_data_types/json_object.jpg)
+
