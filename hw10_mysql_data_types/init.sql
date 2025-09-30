@@ -11,7 +11,8 @@ CREATE TABLE users (
     last_name VARCHAR(50),
     phone VARCHAR(20),
     address TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_settings JSON
 );
 
 -- Таблица категорий товаров
