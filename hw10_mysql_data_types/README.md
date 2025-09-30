@@ -18,7 +18,7 @@
 
 Решение:
 1. Проанализировать типы данных в своем проекте, изменить при необходимости:  
-   не изменял, все типы коррекные https://github.com/thornix/otus_dba/blob/main/hw10_mysql_data_types/clothingshop.sql  
+   не изменял, все типы коррекные https://github.com/thornix/otus_dba/blob/main/hw10_mysql_data_types/init.sql  
 2. Добавить тип JSON в структуру. Проанализировать какие данные могли бы там хранится.привести примеры SQL для добавления записей и выборки:    
 
 В JSON удобно хранить часто изменяемые данные, вместо изменения структуры БД и таблиц, изменяется JSON объект:  
@@ -27,6 +27,7 @@
 2. Характеристики товара.  
 3. Любые данные с переменным набором полей.  
 ![json_screen](https://github.com/thornix/otus_dba/blob/main/hw10_mysql_data_types/json_object.jpg)
+
 
 
 
