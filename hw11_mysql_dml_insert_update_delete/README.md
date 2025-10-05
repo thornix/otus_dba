@@ -56,6 +56,13 @@ CREATE TABLE products IF NOT EXISTS (
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 Решение:  
+1. Напишите запрос по своей базе с inner join:
+Все покупатели и сумма их покупок  
+```
+ select u.first_name,u.last_name,sum(o.total_amount) from orders o join users u on u.user_id = o.user_id
+ group by u.first_name, u.last_name;
+```
+
 
 
 
