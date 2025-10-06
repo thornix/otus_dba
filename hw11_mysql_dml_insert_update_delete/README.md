@@ -69,6 +69,16 @@ select u.first_name,u.last_name,sum(o.total_amount) from users u left join order
 ```
 ![inner_join](https://github.com/thornix/otus_dba/blob/main/hw11_mysql_dml_insert_update_delete/left_join.jpg)  
 
+3. Напишите 5 запросов с WHERE с использованием разных операторов,опишите для чего вам в проекте нужна такая выборка данных:  
+Выборки могут быть полезны для анализа данных о суммах покупок.  
+```
+select order_id,user_id,total_amount from orders where total_amount > 5000;
+select order_id,user_id,total_amount from orders where total_amount < 5000;
+select order_id,user_id,total_amount from orders where total_amount = 5000;
+select order_id,user_id,total_amount from orders where total_amount != 5000;
+select order_id,user_id,total_amount from orders where total_amount <= 5000;
+```
+
 
 
 
