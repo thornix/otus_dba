@@ -56,12 +56,16 @@ CREATE TABLE products IF NOT EXISTS (
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 Решение:  
-1. Напишите запрос по своей базе с inner join:
-Все покупатели и сумма их покупок  
+1. Напишите запрос по своей базе с inner join: 
 ```
  select u.first_name,u.last_name,sum(o.total_amount) from orders o join users u on u.user_id = o.user_id
  group by u.first_name, u.last_name;
 ```
+![inner_join](https://github.com/thornix/otus_dba/blob/main/hw11_mysql_dml_insert_update_delete/inner_join.jpg)  
+
+2.Напишите запрос по своей базе с left join:  
+
+
 
 
 
