@@ -24,3 +24,41 @@ mysqlimport
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены   
 
 Решение:  
+
+1. Храниая процедура для создания новой категории товаров и перемещения в неё товаров определённой категории:
+```
+CREATE PROCEDURE CreateCategoryAndMoveProducts(IN new_category_name VARCHAR(255),IN old_category_id INT)
+BEGIN
+    DECLARE new_category_id INT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+    
+    -- Создаем категорию
+    INSERT INTO categories (name, created_at)
+    VALUES (new_category_name, NOW());
+    
+    SET new_category_id = LAST_INSERT_ID();
+    
+    -- Если указаны товары для перемещения
+    IF old_category_id IS NOT NULL AND old_category_id != '' THEN
+        -- Обновляем категорию товаров
+        UPDATE products 
+        SET category_id = new_category_id,
+            updated_at = NOW()
+        WHERE category_id = old_category_id;
+    END IF;
+    
+    COMMIT;
+    
+    SELECT 
+        new_category_id AS category_id,
+        CONCAT('Категория создана, товары перемещены') AS result;
+    
+END
+``` 
