@@ -62,3 +62,20 @@ BEGIN
     
 END
 ``` 
+
+2. Загрузить данные из приложенных в материалах csv:  
+Загрузка категорий:    
+Перезапустить mysql с опцией - secure-file-priv = ""  
+
+```
+LOAD DATA INFILE '/data_upload/categories_import.csv'
+INTO TABLE categories
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\''
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(name, description, parent_category_id)
+SET parent_category_id = NULLIF(@parent_id, '');
+```
+
+
