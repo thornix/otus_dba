@@ -64,7 +64,7 @@ END
 ``` 
 
 2. Загрузить данные из приложенных в материалах csv:  
-Загрузка категорий:    
+Загрузка категорий из файла:  [categories_import.csv](https://github.com/thornix/otus_dba/blob/12e57667828de877b78255422196d0b838c3575a/hw12_transactions_mvcc_acid_in_mysql/categories_import.csv)  
 Перезапустить mysql с опцией - secure-file-priv = ""  
 
 ```
@@ -77,5 +77,6 @@ IGNORE 1 LINES
 (name, description, parent_category_id)
 SET parent_category_id = NULLIF(@parent_id, '');
 ```
+
 
 
