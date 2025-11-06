@@ -19,4 +19,15 @@
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **Решение:**  
+CASE:  
+```
+SELECT name, 
+CASE
+  WHEN stock_quantity > 0 THEN 'in stock'
+  ELSE 'not available'
+END AS 'availability of goods'
+FROM products
+```
+
+HAVING:
 
