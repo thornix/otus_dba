@@ -19,7 +19,7 @@
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 **Решение:**  
-CASE:  
+CASE: Есть товар в наличии или нет:  
 ```
 SELECT name, 
 CASE
@@ -29,5 +29,12 @@ END AS 'availability of goods'
 FROM products
 ```
 
-HAVING:
+HAVING: Средняя цена товара в каждой категории и фильтр более 1000:  
+```
+SELECT ROUND(AVG(p.price),2) AS price,c.name AS category
+FROM products p JOIN categories c ON p.category_id = c.category_id
+GROUP BY c.name HAVING price > 1000;
+```
+
+ROLLUP:
 
