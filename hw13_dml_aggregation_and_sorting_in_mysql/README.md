@@ -36,6 +36,11 @@ FROM products p JOIN categories c ON p.category_id = c.category_id
 GROUP BY c.name HAVING price > 1000;
 ```
 
-ROLLUP:
+ROLLUP: Плюс итог  
+```
+SELECT ROUND(AVG(p.price),2) AS price,c.name AS category
+FROM products p JOIN categories c ON p.category_id = c.category_id
+GROUP BY c.name WITH ROLLUP HAVING price > 1000;
+```
 
 
