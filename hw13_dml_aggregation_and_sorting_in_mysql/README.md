@@ -29,18 +29,19 @@ END AS 'availability of goods'
 FROM products
 ```
 
-HAVING: Средняя цена товара в каждой категории с фильтром цены > 1000:  
+GROUPING - HAVING: Средняя цена товара в каждой категории с фильтром цены > 1000:  
 ```
 SELECT ROUND(AVG(p.price),2) AS price,c.name AS category
 FROM products p JOIN categories c ON p.category_id = c.category_id
 GROUP BY c.name HAVING price > 1000;
 ```
 
-ROLLUP: Плюс итог  
+GROUPING - HAVING - ROLLUP: Плюс итог  
 ```
 SELECT ROUND(AVG(p.price),2) AS price,c.name AS category
 FROM products p JOIN categories c ON p.category_id = c.category_id
 GROUP BY c.name WITH ROLLUP HAVING price > 1000;
 ```
+
 
 
