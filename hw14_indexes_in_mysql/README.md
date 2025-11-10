@@ -33,3 +33,4 @@ CREATE FULLTEXT ft_idx_nds on products(name,description,sku);
 ```
 SELECT * FROM products WHERE MATCH(name,description,sku) AGAINST('Apple');
 ```
+![fulltext_idx](https://github.com/thornix/otus_dba/blob/main/hw14_indexes_in_mysql/fulltext_idx.jpg)
