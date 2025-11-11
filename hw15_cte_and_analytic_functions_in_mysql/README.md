@@ -74,6 +74,9 @@ SET @address_json = '[
 ```
 CALL addShop(@address_json);
 ```
+Результат:  
+![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/shops.jpg)  
+
 
 
 
