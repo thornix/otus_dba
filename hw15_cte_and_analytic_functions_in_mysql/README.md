@@ -28,10 +28,54 @@ CREATE TABLE sales (
 
 Напишите запрос, который выведет 7-дневное скользящее среднее за последний месяц по самому плодовитому магазину.  
 
-Опишите, какие граничные случаи вы учли в своих запросах:  
-
-Решение:  
-
-
+Опишите, какие граничные случаи вы учли в своих запросах:   
 по нарастающему итогу часть информации была на занятии
 по скользящему среднему нужно подумать самостоятельно
+
+Решение:  
+Cгенерировать 10 магазинов в таблице stores:
+Создаём процедуру:  
+```
+CREATE PROCEDURE addShop(IN json_array TEXT)
+BEGIN
+    DECLARE i INT;
+    DECLARE array_length INT;
+    DECLARE store_address VARCHAR(255);
+   
+    SET array_length = JSON_LENGTH(json_array);
+    SET @i := 0;
+    
+    START TRANSACTION;
+    WHILE @i < array_length DO
+   		SET @store_address = JSON_UNQUOTE(JSON_EXTRACT(json_array, CONCAT('$[', @i, '].address')));
+   		INSERT INTO stores(address) values (@store_address);
+   		SET @i:=@i+1;
+   	END WHILE;
+    COMMIT;
+    
+END
+```
+Создаём данные:  
+```
+SET @address_json = '[
+{"address": "123 Main Street, Orlando, FL 32801"},
+{"address": "456 Ocean Drive, Miami Beach, FL 33139"},
+{"address": "789 Palm Avenue, Tampa, FL 33602"},
+{"address": "6121 Kirkstone Lane, Windermere, FL 34786"},
+{"address": "909 Bay Street, St. Augustine, FL 32084"},
+{"address": "221 Baker Street, Key West, FL 33040"},
+{"address": "303 Sunset Boulevard, Fort Lauderdale, FL 33315"},
+{"address": "567 Citrus Grove, Winter Garden, FL 34787"},
+{"address": "888 Sand Dollar Road, Sarasota, FL 34242 "},
+{"address": "456 Ocean Drive, Miami Beach, FL 33139"}
+]';
+```
+Вызываем процедуру:  
+```
+CALL addShop(@address_json);
+```
+
+
+
+
+
