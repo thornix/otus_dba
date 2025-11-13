@@ -123,6 +123,8 @@ group by MONTH(sl.date) order by SUM desc;
 ```
 select avg(s.sale_amount) from sales s where s.store_id = 1 and month(s.date) = month(CURDATE()) limit 7
 ```
+Результат:  
+![avg](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/avg.png)
 
 
 
