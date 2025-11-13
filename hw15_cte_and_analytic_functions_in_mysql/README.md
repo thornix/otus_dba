@@ -39,11 +39,15 @@ Cгенерировать 10 магазинов в таблице stores:
 CREATE PROCEDURE addShop(IN json_array TEXT)
 BEGIN
     DECLARE i INT;
+   	DECLARE j INT;
     DECLARE array_length INT;
     DECLARE store_address VARCHAR(255);
     DECLARE store_id INT;
    	DECLARE rand_num INT;
-   
+    DECLARE store_count INT;
+    DECLARE sales_parts INT;
+    
+    
     SET array_length = JSON_LENGTH(json_array);
     SET @i := 0;
     
@@ -64,6 +68,22 @@ BEGIN
    		SET @i:=@i+1;
    	END WHILE;
     COMMIT;
+   
+    SET @i := 0;
+    SET @j := 0;
+    SET @store_count = (select max(s.store_id) from stores s);
+   	SET @sales_parts = round(300/@store_count);
+   
+    WHILE @j < @store_count DO
+    		START TRANSACTION;
+   			WHILE @i < @sales_parts DO
+   				SET @rand_num = (FLOOR(1 + RAND() * 730));
+    			INSERT INTO sales(store_id, date, sale_amount) values (@j, DATE_SUB(CURDATE(), INTERVAL @rand_num DAY),(FLOOR(1 + RAND() * 1000000)));
+   				SET @i:=@i+1;
+   			END WHILE;
+   		    COMMIT;
+    SET @j:=@j+1;
+    END WHILE;
 
 END
 ```
@@ -88,6 +108,7 @@ CALL addShop(@address_json);
 ```
 Результат:  
 ![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/shops.jpg)  
+
 
 
 
