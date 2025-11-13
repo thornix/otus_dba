@@ -119,6 +119,10 @@ group by MONTH(sl.date) order by SUM desc;
 Результат:  
 ![month_sales](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/month_sales.jpg)
 
+Напишите запрос, который выведет 7-дневное скользящее среднее за последний месяц по самому плодовитому магазину:    
+```
+select avg(s.sale_amount) from sales s where s.store_id = 1 and month(s.date) = month(CURDATE()) limit 7
+```
 
 
 
