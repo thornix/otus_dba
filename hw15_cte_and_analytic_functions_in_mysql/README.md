@@ -116,7 +116,8 @@ SUM from sales sl join stores st on sl.store_id = st.store_id
 group by MONTH(sl.date) order by SUM desc;
 ```
 Результат:  
-![]()
+![month_sales](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/month_sales.jpg)
+
 
 
 
