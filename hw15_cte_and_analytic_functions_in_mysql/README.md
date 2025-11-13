@@ -41,6 +41,7 @@ BEGIN
     DECLARE i INT;
     DECLARE array_length INT;
     DECLARE store_address VARCHAR(255);
+    DECLARE store_id INT;
    
     SET array_length = JSON_LENGTH(json_array);
     SET @i := 0;
@@ -54,9 +55,10 @@ BEGIN
     COMMIT;
    
    	SET @i := 0;
+    SET @store_id = (select min(s.store_id) from stores s);
     START TRANSACTION;
-   	WHILE @i < 1000 DO
-    	INSERT INTO sales(store_id, date, sale_amount) values (21,DATE_SUB(CURDATE(), INTERVAL 1 DAY),2);
+   	WHILE @i < 700 DO
+    	INSERT INTO sales(store_id, date, sale_amount) values (@store_id, DATE_SUB(CURDATE(), INTERVAL 1 DAY),(FLOOR(1 + RAND() * 100)));
    		SET @i:=@i+1;
    	END WHILE;
     COMMIT;
@@ -83,6 +85,7 @@ CALL addShop(@address_json);
 ```
 Результат:  
 ![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/shops.jpg)  
+
 
 
 
