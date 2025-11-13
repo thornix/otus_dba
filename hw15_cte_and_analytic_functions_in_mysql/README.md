@@ -106,7 +106,7 @@ SET @address_json = '[
 CALL addShop(@address_json);
 ```
 Результат:  
-![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/shops.jpg)  
+![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/store_scr.jpg)
 
 ![from_sales](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/from_sales.png)
 
@@ -118,6 +118,7 @@ group by MONTH(sl.date) order by SUM desc;
 ```
 Результат:  
 ![month_sales](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/month_sales.jpg)
+
 
 
 
