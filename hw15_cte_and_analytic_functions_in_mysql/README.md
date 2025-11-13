@@ -52,7 +52,14 @@ BEGIN
    		SET @i:=@i+1;
    	END WHILE;
     COMMIT;
-    
+   
+   	SET @i := 0;
+    START TRANSACTION;
+   	WHILE @i < 1000 DO
+    	INSERT INTO sales(store_id, date, sale_amount) values (21,DATE_SUB(CURDATE(), INTERVAL 1 DAY),2);
+   		SET @i:=@i+1;
+   	END WHILE;
+    COMMIT;
 END
 ```
 Создаём данные:  
@@ -76,6 +83,7 @@ CALL addShop(@address_json);
 ```
 Результат:  
 ![shops](https://github.com/thornix/otus_dba/blob/main/hw15_cte_and_analytic_functions_in_mysql/shops.jpg)  
+
 
 
 
