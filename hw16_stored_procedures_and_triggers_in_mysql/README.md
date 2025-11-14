@@ -25,4 +25,21 @@ CREATE USER 'client'@'%' IDENTIFIED BY 'password';
 CREATE USER 'manager'@'%' IDENTIFIED BY 'password';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
+```
+CREATE PROCEDURE selectProduct(IN category VARCHAR(255), IN price DECIMAL, IN producer VARCHAR(255), IN attribute VARCHAR(255))
+BEGIN
+	IF (category != 'NULL') THEN
+		SELECT c.* FROM categories c WHERE c.name LIKE category;
+	END IF;
+	IF (price != 'NULL') THEN
+		SELECT FLOOR(1 + RAND() * 730);
+	END IF;
+	IF (producer != 'NULL') THEN
+		SELECT FLOOR(1 + RAND() * 730);
+	END IF;
+	IF (attribute != 'NULL') THEN
+		SELECT FLOOR(1 + RAND() * 730);
+	END IF;
+END
+```
 
