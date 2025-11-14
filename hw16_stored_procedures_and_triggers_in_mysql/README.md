@@ -26,20 +26,21 @@ CREATE USER 'manager'@'%' IDENTIFIED BY 'password';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
 ```
-CREATE PROCEDURE selectProduct(IN category VARCHAR(255), IN price DECIMAL, IN producer VARCHAR(255), IN attribute VARCHAR(255))
+CREATE PROCEDURE selectProduct(IN category VARCHAR(255), IN price DECIMAL, IN brand VARCHAR(255), IN attribute VARCHAR(255))
 BEGIN
 	IF (category != 'NULL') THEN
-		SELECT c.* FROM categories c WHERE c.name LIKE category;
+		SELECT p.* FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE 'Смартфоны';
 	END IF;
 	IF (price != 'NULL') THEN
-		SELECT FLOOR(1 + RAND() * 730);
+		select * from products p where p.price = price;
 	END IF;
-	IF (producer != 'NULL') THEN
-		SELECT FLOOR(1 + RAND() * 730);
+	IF (brand != 'NULL') THEN
+		select * from products p join brands b on p.brand_id = b.brand_id where b.name like brand;
 	END IF;
 	IF (attribute != 'NULL') THEN
-		SELECT FLOOR(1 + RAND() * 730);
+		select * from product_attributes pa join products ps on pa.product_id = ps.product_id where pa.value like attribute;
 	END IF;
 END
 ```
+
 
