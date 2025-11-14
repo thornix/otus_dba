@@ -22,6 +22,7 @@
 Создать пользователей client, manager:  
 ```
 CREATE USER 'client'@'%' IDENTIFIED BY 'password';
+GRANT EXECUTE ON PROCEDURE online_store.selectProduct TO 'client'@'%';
 CREATE USER 'manager'@'%' IDENTIFIED BY 'password';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
@@ -42,5 +43,6 @@ BEGIN
 	END IF;
 END
 ```
+
 
 
