@@ -22,9 +22,7 @@
 Создать пользователей client, manager:  
 ```
 CREATE USER 'client'@'%' IDENTIFIED BY 'password';
-GRANT EXECUTE ON PROCEDURE online_store.selectProduct TO 'client'@'%';
 CREATE USER 'manager'@'%' IDENTIFIED BY 'password';
-GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
 ```
@@ -48,6 +46,11 @@ BEGIN
 	END IF;
 END
 ```
+Выдать права пользователю client на выполнение процедуры selectProduct:    
+```
+GRANT EXECUTE ON PROCEDURE online_store.selectProduct TO 'client'@'%';
+```
+
 Создать процедуру get_orders - которая позволяет просматривать отчет по продажам за определенный период (час, день, неделя) с различными уровнями группировки (по товару, по категории, по производителю)
 ```
 CREATE PROCEDURE getOrders(
@@ -82,8 +85,14 @@ BEGIN
 
 END
 ```
+Выдать права пользователю client на выполнение процедуры selectProduct:  
+```
+GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
+```
+
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
