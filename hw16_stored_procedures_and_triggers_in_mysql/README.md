@@ -28,7 +28,11 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
 ```
-CREATE PROCEDURE selectProduct(IN category VARCHAR(255), IN price DECIMAL, IN brand VARCHAR(255), IN attribute VARCHAR(255))
+CREATE PROCEDURE selectProduct(
+IN category VARCHAR(255), 
+IN price DECIMAL, 
+IN brand VARCHAR(255), 
+IN attribute VARCHAR(255))
 BEGIN
 	IF (category != 'NULL') THEN
 		SELECT p.* FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE 'Смартфоны';
@@ -80,5 +84,6 @@ END
 ```
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
