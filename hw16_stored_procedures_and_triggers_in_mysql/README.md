@@ -76,13 +76,13 @@ BEGIN
     	SET @time = week;
     END IF;
     IF (product != 'NULL') THEN
-    	SELECT count(os.order_id),ps.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id where os.created_at < (SUBTIME(NOW(), @time)) group by ps.name;
+    	SELECT count(os.order_id),ps.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id where os.created_at > (SUBTIME(NOW(), @time)) group by ps.name;
     END IF;
     IF (category != 'NULL') THEN
-    	SELECT count(os.order_id),c.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id where os.created_at < (SUBTIME(NOW(), @time)) group by c.name;
+    	SELECT count(os.order_id),c.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id where os.created_at > (SUBTIME(NOW(), @time)) group by c.name;
     END IF;
     IF (producer != 'NULL') THEN
-    	SELECT count(os.order_id),b.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id join brands b on b.brand_id = ps.brand_id where os.created_at < (SUBTIME(NOW(), @time)) group by b.name;
+    	SELECT count(os.order_id),b.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id join brands b on b.brand_id = ps.brand_id where os.created_at > (SUBTIME(NOW(), @time)) group by b.name;
     END IF;
 
 END
@@ -94,6 +94,7 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
