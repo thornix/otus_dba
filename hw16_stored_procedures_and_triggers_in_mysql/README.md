@@ -33,16 +33,16 @@ IN brand VARCHAR(255),
 IN attribute VARCHAR(255))
 BEGIN
 	IF (category != 'NULL') THEN
-		SELECT p.* FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE category;
+		SELECT p.name FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE category;
 	END IF;
 	IF (price != 'NULL') THEN
-		select * from products p where p.price = price;
+		select p.name from products p where p.price = price;
 	END IF;
 	IF (brand != 'NULL') THEN
-		select * from products p join brands b on p.brand_id = b.brand_id where b.name like brand;
+		select p.name from products p join brands b on p.brand_id = b.brand_id where b.name like brand;
 	END IF;
 	IF (attribute != 'NULL') THEN
-		select * from product_attributes pa join products ps on pa.product_id = ps.product_id where pa.value like attribute;
+		select p.name from product_attributes pa join products ps on pa.product_id = ps.product_id where pa.value like attribute;
 	END IF;
 END
 ```
@@ -94,6 +94,7 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
