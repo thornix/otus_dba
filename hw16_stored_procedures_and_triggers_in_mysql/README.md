@@ -78,5 +78,7 @@ BEGIN
 
 END
 ```
+Результат:  
+![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
 
 
