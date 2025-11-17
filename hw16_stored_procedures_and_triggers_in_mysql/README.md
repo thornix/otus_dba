@@ -24,6 +24,7 @@
 CREATE USER 'client'@'%' IDENTIFIED BY 'password';
 GRANT EXECUTE ON PROCEDURE online_store.selectProduct TO 'client'@'%';
 CREATE USER 'manager'@'%' IDENTIFIED BY 'password';
+GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 ```
 Создать процедуру выборки товаров с использованием различных фильтров: категория, цена, производитель, различные дополнительные параметры:  
 ```
@@ -43,6 +44,39 @@ BEGIN
 	END IF;
 END
 ```
+Создать процедуру get_orders - которая позволяет просматривать отчет по продажам за определенный период (час, день, неделя) с различными уровнями группировки (по товару, по категории, по производителю)
+```
+CREATE PROCEDURE getOrders(
+IN hours VARCHAR(255), 
+IN day VARCHAR(255), 
+IN week VARCHAR(255),
+IN product VARCHAR(255),
+IN category VARCHAR(255),
+IN producer VARCHAR(255)
+)
+BEGIN
+	DECLARE time VARCHAR(255);
+	
+    IF (hours != 'NULL') THEN
+    	SET @time = hours;
+    END IF;
+    IF (day != 'NULL') THEN
+    	SET @time = day;
+    END IF;
+    IF (week != 'NULL') THEN
+    	SET @time = week;
+    END IF;
+    IF (product != 'NULL') THEN
+    	SELECT count(os.order_id),ps.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id where os.created_at < (SUBTIME(NOW(), @time)) group by ps.name;
+    END IF;
+    IF (category != 'NULL') THEN
+    	SELECT count(os.order_id),c.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id where os.created_at < (SUBTIME(NOW(), @time)) group by c.name;
+    END IF;
+    IF (producer != 'NULL') THEN
+    	SELECT count(os.order_id),b.name FROM orders os join order_items oi on os.order_id = oi.order_id join products ps on ps.product_id = oi.order_id join categories c on ps.category_id = c.category_id join brands b on b.brand_id = ps.brand_id where os.created_at < (SUBTIME(NOW(), @time)) group by b.name;
+    END IF;
 
+END
+```
 
 
