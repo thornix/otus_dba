@@ -70,7 +70,7 @@ END
 GRANT EXECUTE ON PROCEDURE online_store.selectProduct TO 'client'@'%';
 ```
 Результат:  
-![func_select](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/selectproduct.png)
+![selprodlimit](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/selprodlimit.jpg)
 
 Создать процедуру get_orders - которая позволяет просматривать отчет по продажам за определенный период (час, день, неделя) с различными уровнями группировки (по товару, по категории, по производителю)
 ```
@@ -113,6 +113,7 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
