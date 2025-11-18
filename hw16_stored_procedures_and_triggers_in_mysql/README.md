@@ -36,9 +36,9 @@ IN sortproductname VARCHAR(255)
 BEGIN
 	IF (category != 'NULL') THEN
 		IF (sortproductname != 'NULL') THEN
-			SELECT p.name FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE category;
-		ELSE
 			SELECT p.name FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE category ORDER BY CONCAT('c.', sortproductname);
+		ELSE
+			SELECT p.name FROM products p join categories c on p.category_id = c.category_id WHERE c.name LIKE category;
 		END IF;
 	END IF;
 	IF (price != 'NULL') THEN
@@ -100,6 +100,7 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
