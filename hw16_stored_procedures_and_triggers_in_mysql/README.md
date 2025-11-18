@@ -31,35 +31,36 @@ IN category VARCHAR(255),
 IN price DECIMAL, 
 IN brand VARCHAR(255), 
 IN attribute VARCHAR(255),
-IN sortproductname VARCHAR(255)
+IN sortproductname VARCHAR(255),
+IN limitparam INT
 )
 BEGIN
 	IF (category != 'NULL') THEN
 		IF (sortproductname != 'NULL') THEN
-			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE c.name LIKE category ORDER BY CONCAT('c.', sortproductname);
+			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE c.name LIKE category ORDER BY CONCAT('c.', sortproductname) LIMIT limitparam;
 		ELSE
-			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE c.name LIKE category;
+			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE c.name LIKE category LIMIT limitparam;
 		END IF;
 	END IF;
 	IF (price != 'NULL') THEN
 		IF (sortproductname != 'NULL') THEN
-			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE p.price = price ORDER BY CONCAT('c.', sortproductname);
+			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE p.price = price ORDER BY CONCAT('c.', sortproductname) LIMIT limitparam;
 		ELSE
-			SELECT p.name FROM products p WHERE p.price = price;
+			SELECT p.name FROM products p WHERE p.price = price LIMIT limitparam;
 		END IF;
 	END IF;
 	IF (brand != 'NULL') THEN
 		IF (sortproductname != 'NULL') THEN
-			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id join brands b ON p.brand_id = b.brand_id where b.name like brand ORDER BY CONCAT('c.', sortproductname);
+			SELECT p.name FROM products p JOIN categories c ON p.category_id = c.category_id join brands b ON p.brand_id = b.brand_id where b.name like brand ORDER BY CONCAT('c.', sortproductname) LIMIT limitparam;
 		ELSE
-			SELECT p.name FROM products p JOIN brands b ON p.brand_id = b.brand_id WHERE b.name LIKE brand;
+			SELECT p.name FROM products p JOIN brands b ON p.brand_id = b.brand_id WHERE b.name LIKE brand LIMIT limitparam;
 		END IF;
 	END IF;
 	IF (attribute != 'NULL') THEN
 		IF (sortproductname != 'NULL') THEN
-			SELECT p.name FROM products p join categories c on p.category_id = c.category_id join brands b on p.brand_id = b.brand_id WHERE b.name like brand ORDER BY CONCAT('c.', sortproductname);
+			SELECT p.name FROM products p join categories c on p.category_id = c.category_id join brands b on p.brand_id = b.brand_id WHERE b.name like brand ORDER BY CONCAT('c.', sortproductname) LIMIT limitparam;
 		ELSE
-			SELECT p.name FROM product_attributes pa JOIN products ps ON pa.product_id = ps.product_id WHERE pa.value LIKE attribute;
+			SELECT p.name FROM product_attributes pa JOIN products ps ON pa.product_id = ps.product_id WHERE pa.value LIKE attribute LIMIT limitparam;
 		END IF;
 	END IF;
 END
@@ -112,6 +113,7 @@ GRANT EXECUTE ON PROCEDURE online_store.getOrders TO 'manager'@'%';
 
 Результат:  
 ![func_params](https://github.com/thornix/otus_dba/blob/main/hw16_stored_procedures_and_triggers_in_mysql/func_params.png)
+
 
 
 
