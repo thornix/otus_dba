@@ -41,3 +41,6 @@ EXPLAIN format=JSON:
 
 EXPLAIN format=TREE:  
 ![EXPLAIN_TREE](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_tree1.jpg)
+
+Оцените план прохождения запроса, найдите самые тяжелые места:  
+Из EXPLAIN видно что только одно значение не использует индексы читает все строки из таблицы. 
