@@ -24,3 +24,6 @@
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 Решение:  
+Постройте EXPLAIN в 3 формата:    
+EXPLAIN:  
+![EXPLAIN_1](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_1.png)
