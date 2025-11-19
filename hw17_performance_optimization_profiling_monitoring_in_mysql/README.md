@@ -43,5 +43,11 @@ EXPLAIN format=TREE:
 ![EXPLAIN_TREE](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_tree1.jpg)
 
 Оцените план прохождения запроса, найдите самые тяжелые места:  
-Из EXPLAIN видно что в целом все запросы используют индексы и только одно значение и таблицы orders вычитывает все значения. Исправить это не получиться так как в запросе имеется count(os.order_id). 
+Из EXPLAIN видно что в WHERE os.created_at < (SUBTIME(NOW(), '168:00:00')) тип связи ALL. Исправить можно созданием индекса
+```
+create index idx_created_at on orders(created_at)
+```
+Результат после создания индекса, тип связи таблиц по индексу:  
+![index](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/ALL_index.jpg)
+
 
