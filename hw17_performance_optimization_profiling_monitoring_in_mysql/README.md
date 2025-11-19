@@ -24,6 +24,20 @@
 минус 2 балла за рабочее решение, и недостатки указанные преподавателем не устранены  
 
 Решение:  
-Постройте EXPLAIN в 3 формата:    
+Постройте EXPLAIN в 3 формата:  
+Для анализа взят запрос:  
+```
+SELECT count(os.order_id),b.name FROM orders os join order_items oi 
+on os.order_id = oi.order_id join products ps on ps.product_id = 
+oi.order_id join categories c on ps.category_id = c.category_id 
+join brands b on b.brand_id = ps.brand_id where os.created_at < 
+(SUBTIME(NOW(), '168:00:00')) group by b.name;
+```
 EXPLAIN:  
-![EXPLAIN_1](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_1.png)
+![EXPLAIN](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN.png)
+
+EXPLAIN format=JSON:  
+![EXPLAIN_JSON](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_json.png)
+
+EXPLAIN format=TREE:  
+![EXPLAIN_TREE](https://github.com/thornix/otus_dba/blob/main/hw17_performance_optimization_profiling_monitoring_in_mysql/EXPLAIN_tree1.jpg)
