@@ -29,3 +29,4 @@ union all select 'countrylanguage', count() from countrylanguage;
 10 баллов - задание выполнено в полном объеме  
 
 Решение:  
+![select_result](https://github.com/thornix/otus_dba/blob/main/hw18_mysql_backup_and_restore/select_result.png)
