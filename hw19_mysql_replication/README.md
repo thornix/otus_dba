@@ -114,7 +114,14 @@ Help:
 ```
 show variables like "%gtid%";
 ```
+Результат:  
+![gtid](https://github.com/thornix/otus_dba/blob/main/hw19_mysql_replication/gtid.png)
+
+
+
+```
 
 
 
    
+
