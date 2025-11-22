@@ -129,11 +129,12 @@ show variables like "%gtid%";
 ![gtid](https://github.com/thornix/otus_dba/blob/main/hw19_mysql_replication/gtid.png)
 
 
-![master-slaver-mysql](https://github.com/thornix/otus_dba/blob/main/hw19_mysql_replication/master-slaver-mysql.png)
+![master-slaver-mysql](https://github.com/thornix/otus_dba/blob/main/hw19_mysql_replication/master-slaver-mysql1.png)
 
 
 
    
+
 
 
 
