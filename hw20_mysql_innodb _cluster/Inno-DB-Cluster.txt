@@ -1,0 +1,116 @@
+1. config
+
+2. network and soft
+10.10.1.11   ic-1
+10.10.1.12   ic-2
+10.10.1.13   ic-3
+
+mysql
+> create user 'root'@'%' identified by 'password';
+> grant all privileges on *.* to 'root'@'%' with grant option;
+> flush privileges;
+> \q
+
+
+mysqlsh
+shell.connect('root@ic-1:3301')
+dba.configure_instance('ic-1:3301')
+
+shell.connect('root@ic-2:3301')
+dba.configure_instance('ic-2:3301')
+
+shell.connect('root@ic-3:3301')
+dba.configure_instance('ic-3:3301')
+
+shell.connect('root@ic-3:3301')
+
+cl=dba.create_cluster('ic')
+
+cl = dba.get_cluster()
+
+dba.reboot_cluster_from_complete_outage()
+
+dba.configure_local_instance()
+
+cl.check_instance_state('root@ic-2:3301')
+
+cl.add_instance('root@ic-3:3301')
+
+
+Если ошибка то проверить конфиг - group_seeds и перезапустить mysql:
+-------------------------------------------------------------------
+ERROR: error installing plugin 'group_replication': ic-3:3301: Error installing plugin 'group_replication': got 'Operation not permitted' writing to mysql.plugin
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+RuntimeError: Cluster.add_instance: error installing plugin 'group_replication': ic-3:3301: Error installing plugin 'group_replication': got 'Operation not permitted' writing to mysql.plugi
+
+cl.status()
+
+mysqldump --all-databases  --triggers --routines --events > dump.sql
+
+
+
+==========
+RuntimeError: Dba.create_cluster: dba.create_cluster: Unable to create cluster. The instance 'ic-1:3301' has a populated Metadata schema and belongs to that Metadata. Use either dba.drop_metadata_schema() to drop the schema, or dba.reboot_cluster_from_complete_outage() to reboot the cluster from complete outage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+bind-address    = 0.0.0.0
+port                    = 3300
+symbolic-links=0
+# Replication part
+server_id=3
+gtid_mode=ON
+enforce_gtid_consistency=ON
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+binlog_checksum=NONE
+log_slave_updates=ON
+log_bin=binlog
+binlog_format=ROW
+# Group replication part
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name="replication_group_name_1"
+loose-group_replication_start_on_boot=off
+loose-group_replication_local_address= "1.1.1.1:33061"
+loose-group_replication_group_seeds= "1.1.1.1:33061,1.1.1.2:33061,1.1.1.3:33061"
+loose-group_replication_bootstrap_group= off
