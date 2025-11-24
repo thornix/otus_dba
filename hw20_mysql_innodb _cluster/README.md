@@ -51,7 +51,7 @@ EOF
 
 2. Установить софт:
 ```
-apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y
+apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y && apt install mysql-shell -y
 ```
 3. Пользователь для репликации:
 ```
@@ -142,3 +142,4 @@ loose-group_replication_start_on_boot=off
 loose-group_replication_local_address= "10.10.1.13:33061"
 loose-group_replication_group_seeds= "10.10.1.11:33061,10.10.1.12:33061,10.10.1.13:33061"
 ```
+
