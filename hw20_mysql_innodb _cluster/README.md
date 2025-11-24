@@ -53,7 +53,7 @@ EOF
 ```
 apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y && apt install mysql-shell -y
 ```
-3. Пользователь для репликации:
+3. Пользователь для кластера на всех нодах:
 ```
 mysql
 > create user 'root'@'%' identified by 'password';
@@ -142,4 +142,43 @@ loose-group_replication_start_on_boot=off
 loose-group_replication_local_address= "10.10.1.13:33061"
 loose-group_replication_group_seeds= "10.10.1.11:33061,10.10.1.12:33061,10.10.1.13:33061"
 ```
+5. Зайти на каждой ноде в mysqlsh и выполнить:
+```
+IC-1:
+mysqlsh
+shell.connect('root@ic-1:3301')
+dba.configure_instance('ic-1:3301')
+IC-2:
+mysqlsh
+shell.connect('root@ic-2:3301')
+dba.configure_instance('ic-2:3301')
+IC-3:
+mysqlsh
+shell.connect('root@ic-3:3301')
+dba.configure_instance('ic-3:3301')
+```
+6. Создать кластер:
+```
+cl=dba.create_cluster('ic')
+```
+7. Делаем дамп и воостанавливаем на нодах:
+```
+mysqldump --all-databases  --triggers --routines --events > dump.sql
+mysql < dump.sql
+```
+8. Добавляем ноды в кластер на IC-1:
+```
+musqlsh
+cl.add_instance('root@ic-1:3301')
+cl.add_instance('root@ic-2:3301')
+cl.add_instance('root@ic-3:3301')
+```
+После восстановления БД online_store_db из дампа на IC-1, база автоматом появилась на IC-2, IC-3, последующие изменения также реплицируются.  
+Результат:  
+
+
+
+P.S:  
+Возможно понадобиться выполнить mysqlsh --classic --dba enableXProtocol  
+
 
