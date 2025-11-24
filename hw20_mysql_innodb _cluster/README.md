@@ -173,12 +173,25 @@ cl.add_instance('root@ic-1:3301')
 cl.add_instance('root@ic-2:3301')
 cl.add_instance('root@ic-3:3301')
 ```
-После восстановления БД online_store_db из дампа на IC-1, база автоматом появилась на IC-2, IC-3, последующие изменения также реплицируются.  
+   
 Результат:  
+ic-1  
+![ic-1-status](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-1-status.jpg)  
+ic-2  
+![ic-2-status](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-2-status.jpg)  
+ic-3  
+![ic-3-status](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-3-status.png)  
 
-
+После восстановления БД online_store_db из дампа на IC-1, база автоматом появилась на IC-2, IC-3, последующие изменения также реплицируются.  
+ic-1  
+![ic-1-showtables](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-1-showtables.png)  
+ic-2  
+![ic-2-showtables](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-2-showtables.png)
+ic-3  
+![ic-3-showtables](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-3-showtables.png)
 
 P.S:  
 Возможно понадобиться выполнить mysqlsh --classic --dba enableXProtocol  
+
 
 
