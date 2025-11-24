@@ -53,4 +53,92 @@ EOF
 ```
 apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y
 ```
-
+3. Пользователь для репликации:
+```
+mysql
+> create user 'root'@'%' identified by 'password';
+> grant all privileges on *.* to 'root'@'%' with grant option;
+> flush privileges;
+> \q
+```
+4. Конфигурация my.cnf на IC-1:
+```
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+bind-address    = 0.0.0.0
+port            = 3301
+symbolic-links=0
+# Replication part
+server_id=1
+gtid_mode=ON
+enforce_gtid_consistency=ON
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+binlog_checksum=NONE
+log_slave_updates=ON
+log_bin=binlog
+binlog_format=ROW
+# Group replication part
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name="inno-db-cluster-1"
+loose-group_replication_start_on_boot=off
+loose-group_replication_local_address= "10.10.1.11:33061"
+loose-group_replication_group_seeds= "10.10.1.11:33061,10.10.1.12:33061,10.10.1.13:33061"
+```
+4.1 Конфигурация my.cnf на IC-2:
+```
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+bind-address    = 0.0.0.0
+port            = 3301
+symbolic-links=0
+# Replication part
+server_id=2
+gtid_mode=ON
+enforce_gtid_consistency=ON
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+binlog_checksum=NONE
+log_slave_updates=ON
+log_bin=binlog
+binlog_format=ROW
+# Group replication part
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name="inno-db-cluster-1"
+loose-group_replication_start_on_boot=off
+loose-group_replication_local_address= "10.10.1.12:33061"
+loose-group_replication_group_seeds= "10.10.1.11:33061,10.10.1.12:33061,10.10.1.13:33061"
+```
+4.2 Конфигурация my.cnf на IC-3:  
+```
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+bind-address    = 0.0.0.0
+port            = 3301
+symbolic-links=0
+# Replication part
+server_id=3
+gtid_mode=ON
+enforce_gtid_consistency=ON
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+binlog_checksum=NONE
+log_slave_updates=ON
+log_bin=binlog
+binlog_format=ROW
+# Group replication part
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name="inno-db-cluster-1"
+loose-group_replication_start_on_boot=off
+loose-group_replication_local_address= "10.10.1.13:33061"
+loose-group_replication_group_seeds= "10.10.1.11:33061,10.10.1.12:33061,10.10.1.13:33061"
+```
