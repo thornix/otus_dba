@@ -19,3 +19,38 @@
 При выполнении дополнительного задания (*) - дополнительно 4 балла.  
 
 Решение:  
+Конфигурация InnoDB Cluster на Ubuntu 24.04.3 LTS + 8.0.44-0ubuntu0.24.04.1:  
+1. Конфигурация сети на всех нодах:
+```
+1.1 Добавить конфинг для netplan(все остальные конфиги можно удалить):  
+cat << EOF >> /etc/netplan/00-static.yaml
+network:
+  version: 2
+  ethernets:
+    ens33:
+      addresses:
+        - 10.10.1.11/24
+      routes:
+        - to: default
+          via: 10.10.1.1
+          metric: 100
+      nameservers:
+          addresses: [10.10.1.1, 8.8.8.8]
+EOF
+1.2 Установить права и проверить конфиг:
+chmod 600 /etc/netplan/00-static.yaml && netplan generate
+1.3 Применить конфиг:
+netplan apply
+1.4 Добавить адреса в hosts:
+cat << EOF >> /etc/hosts
+10.10.1.11   ic-1
+10.10.1.12   ic-2
+10.10.1.13   ic-3
+EOF
+```
+
+2. Установить софт:
+```
+apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y
+```
+
