@@ -191,16 +191,42 @@ ic-3
 ![ic-3-showtables](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-3-showtables.png)
 
 Установка и настройка mysqlrouter на IC-1:  
-1. Установка:  
+1. Установка mysqlrouter:    
 ```
-apt install mysql-router -y
-```
-2. Настройка:  
-```
+apt install mysql-router
 mysqlrouter --bootstrap 10.10.1.11:3301 --user mysqlrouter
+При первом запуске автоматически формируется конфиг mysqlrouter. Можно поправить порты на стандартные 3306 - rw,3307 - ro.
 ```
-3. Конфиг mysqlrouter формируется автоматически призапуске. Порты можно поправить на стандаотные 3306 - rw,3307 - ro.
+2. Установка sysbanch и создание тестовой БД:    
+```
+apt install sysbench -y
+mysql -u root -p
+create database sbtest;
+```
+3. Запуск sysbanch через порт mysql-router 3306 на ic-1, при этом mysql на ic-2 остановлен systemctl stop mysql эмитирую отказ СУБД:  
+```
+sysbench \
+--db-driver=mysql \
+--mysql-user=root \
+--mysql-password=password \
+--mysql-db=dbtest \
+--mysql-host=ic-1 \
+--mysql-port=3306 \
+--tables=16 \
+--table-size=100000 \
+/usr/share/sysbench/oltp_read_write.lua prepare
+```
+4. Статус кластера:  
+![status-cluster-run-sysbanch](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/status-cluster-run-sysbanch.png)  
+5. Работа sysbanch:  
+![](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/sysbanch.jpg)  
+6. Данные сохраняются:  
+![data-ic-3](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/data-ic-3.png)  
+7. После запуска mysql на ic-2 нода автоматом добавилась в кластер и данные реплицировались: 
+![restore_status_cluster](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/restore_status_cluster.png)
 
-   
+ ![ic-2-restore](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-2-restore.jpg) 
+
+
 
 
