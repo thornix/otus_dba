@@ -51,7 +51,7 @@ EOF
 
 2. Установить софт:
 ```
-apt update -y && apt install mysql-server -y && apt install mysql-router -y && apt install mysql-client -y && apt install mysql-shell -y
+apt update -y && apt install mysql-server -y && apt install mysql-client -y && apt install mysql-shell -y
 ```
 3. Пользователь для кластера на всех нодах:
 ```
@@ -190,8 +190,17 @@ ic-2
 ic-3  
 ![ic-3-showtables](https://github.com/thornix/otus_dba/blob/main/hw20_mysql_innodb%20_cluster/ic-3-showtables.png)
 
-P.S:  
-Возможно понадобиться выполнить mysqlsh --classic --dba enableXProtocol  
+Установка и настройка mysqlrouter на IC-1:  
+1. Установка:  
+```
+apt install mysql-router -y
+```
+2. Настройка:  
+```
+mysqlrouter --bootstrap 10.10.1.11:3301 --user mysqlrouter
+```
+3. Конфиг mysqlrouter формируется автоматически призапуске. Порты можно поправить на стандаотные 3306 - rw,3307 - ro.
 
+   
 
 
