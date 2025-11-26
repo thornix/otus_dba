@@ -26,3 +26,17 @@ ________________________________________________________________________________
 плюс 5 баллов за задание со звездочкой*  
 
 Решение:  
+1. Установить MongoDB одним из способов: ВМ, докер:  
+MongoDB установлена в на VM  
+![mongo_unstall](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/mongo_unstall.png)
+
+2. Заполнить данными:   
+Данные взяты из [https://github.com/ozlerhakan/mongodb-json-files](https://github.com/ozlerhakan/mongodb-json-files)
+![data_set](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/data_set.png)  
+
+3. Написать несколько запросов на выборку и обновление данных:  
+```
+db.books.find({'_id': 1})
+db.books.updateOne({'_id': 1},{$set:{pageCount: 417}})
+```
+![set](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/set.jpg)  
