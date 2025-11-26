@@ -39,4 +39,21 @@ MongoDB установлена в на VM
 db.books.find({'_id': 1})
 db.books.updateOne({'_id': 1},{$set:{pageCount: 417}})
 ```
-![set](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/set.jpg)  
+![set](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/set.jpg)    
+
+```
+db.books.insertOne({
+    title: 'Evgeniy Onegin',
+    isbn: '5675674567',
+    pageCount: 100,
+    publishedDate: ISODate('1825-02-18T07:00:00.000Z'),
+    thumbnailUrl: 'https://google.com',
+    longDescription: `And to live in a hurry and to feel in a hurry`,
+    status: 'PUBLISH',
+    authors: [ 'Alexander Pushkin' ],
+    categories: [ 'poem in verse', 'fiction' ]
+})
+db.books.deleteOne({"title": "Evgeniy Onegin"})
+```
+![result](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/result.png)  
+
