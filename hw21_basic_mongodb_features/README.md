@@ -55,5 +55,24 @@ db.books.insertOne({
 })
 db.books.deleteOne({"title": "Evgeniy Onegin"})
 ```
-![result](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/result.png)  
+![result](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/result.png)    
+
+Создать индексы и сравнить производительность:  
+План тестирования:  
+```
+db.books.find({'title': "Designing Hard Software"}).explain("executionStats")
+
+db.books.createIndex({'title': 1})
+
+db.books.find({'title': "Designing Hard Software"}).explain("executionStats")
+
+```
+Explain до создания индекса:  
+![defore_index](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/defore_index.jpg)  
+
+Explain после создания индекса:  
+![after_index](https://github.com/thornix/otus_dba/blob/main/hw21_basic_mongodb_features/after_index.png)  
+
+Вывод:  
+После создания индекса время поиска сократилось.  
 
