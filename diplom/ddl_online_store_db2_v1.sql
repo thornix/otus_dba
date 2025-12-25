@@ -51,10 +51,10 @@ CREATE TABLE brands (
 CREATE TABLE provisioners (
    id BIGINT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
-   address_id BIGINT,
+   address VARCHAR(255),
    phone VARCHAR(255),
    email VARCHAR(255) NOT NULL,
-   description TEXT
+   notes TEXT
 );
 
 -- Таблица товаров
@@ -126,6 +126,6 @@ CREATE TABLE order_items (
 
 
 -- Создание пользователя для базы данных (опционально)
-CREATE USER IF NOT EXISTS 'store_user'@'%' IDENTIFIED BY 'password';
+CREATE USER IF NOT EXISTS 'store_user'@'%' IDENTIFIED BY 'Pass5word8';
 GRANT ALL PRIVILEGES ON online_store_db2.* TO 'store_user'@'%';
 FLUSH PRIVILEGES;
