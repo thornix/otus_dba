@@ -12,7 +12,9 @@ call purchase(1,1,@p_order_id,@p_order_number);
 select @p_order_id, @p_order_number;
 select * from orders o 
 select * from order_items
+update orders set status= 'cancelled' where id = 16;
 ```
+
 
 
 
