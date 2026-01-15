@@ -46,6 +46,11 @@ call InsertProductsFromJSON('{
 		"quantity": 10
     }');
 ```
+```
+INSERT INTO online_store_db2.cart_items
+(id, cart_id, product_id, quantity, added_at)
+VALUES(1, 1, 8, 1, '2024-02-10 14:20:00');
+```
 
 
 
