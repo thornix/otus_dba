@@ -14,7 +14,7 @@ select * from orders o
 select * from order_items
 update orders set status= 'cancelled' where id = 16;
 ```
-UloadProducts
+UploadProducts
 ```
 SET @products_json = '[
     {
@@ -42,6 +42,7 @@ call InsertProductsFromJSON('{
 		"quantity": 10
     }');
 ```
+
 
 
 
